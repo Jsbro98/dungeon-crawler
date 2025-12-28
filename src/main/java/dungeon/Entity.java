@@ -10,11 +10,11 @@ public abstract class Entity {
   }
 
   public void heal(int healingValue) {
-    health = Math.min(maxHealth, healingValue + health);
+    setHealth(Math.min(maxHealth, healingValue + health));
   }
 
   public void takeDamage(int damageValue) {
-    health = Math.max(0, health - damageValue);
+    setHealth(Math.max(0, health - damageValue));
   }
 
   public boolean isDead() {
