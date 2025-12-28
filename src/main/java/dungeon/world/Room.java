@@ -2,9 +2,10 @@ package dungeon.world;
 
 import dungeon.Entity;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Room {
-  private final ArrayList<Entity> entities;
+  private final List<Entity> entities;
 
   public Room() {
     this.entities = new ArrayList<>();
@@ -20,5 +21,12 @@ public class Room {
 
   public void removeEntity(Entity entity) {
     entities.remove(entity);
+  }
+
+  @Override
+  public String toString() {
+    return "Room{" +
+            "entities=" + entities +
+            '}';
   }
 }
