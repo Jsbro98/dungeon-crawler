@@ -1,14 +1,18 @@
 package dungeon.world;
 
 import dungeon.Entity;
+import dungeon.Item;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Room {
   private final List<Entity> entities;
+  private final List<Item> items;
 
   public Room() {
     this.entities = new ArrayList<>();
+    this.items = new ArrayList<>();
   }
 
   public boolean hasEntities() {
