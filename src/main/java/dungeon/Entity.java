@@ -14,8 +14,18 @@ public abstract class Entity {
   }
 
   public void takeDamage(int damageValue) {
-    setHealth(Math.max(0, getHealth() - damageValue));
+    health = Math.max(0, health - damageValue);
   }
+
+  public boolean isDead() {
+    return health == 0;
+  }
+
+  public boolean isAlive() {
+    return health > 0;
+  }
+
+  // getters & setters
 
   public int getHealth() {
     return health;
