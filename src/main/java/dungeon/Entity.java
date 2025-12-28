@@ -2,14 +2,20 @@ package dungeon;
 
 public abstract class Entity {
   private int health;
+  private final int maxHealth;
 
   protected Entity(int health) {
     this.health = health;
+    this.maxHealth = health;
   }
 
-  abstract void heal(int healingValue);
+  public void heal(int healingValue) {
+    health = Math.max(maxHealth, healingValue + health);
+  }
 
-  abstract void takeDamage(int damageValue);
+  public void takeDamage(int damageValue) {
+    setHealth(Math.max(0, getHealth() - damageValue));
+  }
 
   public int getHealth() {
     return health;
