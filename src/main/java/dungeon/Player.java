@@ -4,12 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Player extends Entity {
-  // maybe create Inventory class?
-  private final Map<String, Item> inventory;
+  private final Inventory inventory;
 
   public Player(int health) {
     super(health);
-    this.inventory = new HashMap<>();
+    this.inventory = new Inventory(10);
   }
 
   @Override
