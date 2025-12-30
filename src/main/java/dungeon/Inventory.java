@@ -14,8 +14,12 @@ public class Inventory {
   }
 
   public void addToInventory(String key, Item item) {
-    if (inventory.size() + 1 > inventorySize)
+    if (inventory.size() >= inventorySize)
       throw new UnsupportedOperationException("could not pick up " + item.getName() + ", inventory is full");
+
+    if (inventory.containsKey(key))
+      throw new UnsupportedOperationException("duplicate item provided for " + item.getName() + ", duplicates are not allowed");
+
     inventory.put(key, item);
   }
 
@@ -30,8 +34,6 @@ public class Inventory {
 
   @Override
   public String toString() {
-    return "Inventory{" +
-            "inventory=" + inventory +
-            '}';
+    return "Inventory{" + "inventory=" + inventory + '}';
   }
 }
