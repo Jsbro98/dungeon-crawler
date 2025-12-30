@@ -1,8 +1,5 @@
 package dungeon;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class Player extends Entity {
   private final Inventory inventory;
 
