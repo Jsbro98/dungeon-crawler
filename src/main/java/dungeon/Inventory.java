@@ -14,8 +14,9 @@ public class Inventory {
   }
 
   public void addToInventory(String key, Item item) {
-   if (inventory.size() + 1 > inventorySize) return;
-   inventory.put(key, item);
+    if (inventory.size() + 1 > inventorySize)
+      throw new UnsupportedOperationException("could not pick up " + item.getName() + ", inventory is full");
+    inventory.put(key, item);
   }
 
   public void removeFromInventory(String key) {
@@ -25,5 +26,12 @@ public class Inventory {
   // provide a defensive copy for get operations
   public Map<String, Item> getInventory() {
     return Collections.unmodifiableMap(inventory);
+  }
+
+  @Override
+  public String toString() {
+    return "Inventory{" +
+            "inventory=" + inventory +
+            '}';
   }
 }
