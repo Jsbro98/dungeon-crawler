@@ -36,6 +36,10 @@ public enum Item {
     return type;
   }
 
+  public boolean isNothing() {
+    return type == ItemType.BLANK;
+  }
+
   // helper enum
   public enum ItemType {
     WEAPON, POTION, BLANK
