@@ -18,7 +18,7 @@ public enum Item {
     this.type = type;
     this.name = name;
     this.power = power;
-  };
+  }
 
   // getters
   public String getName() {
