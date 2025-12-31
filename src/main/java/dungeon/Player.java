@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.Random;
 
 public class Player extends Entity implements Attacker {
-  private static final Random RANDOM = new Random();
+  private static final Random PLAYER_RANDOM = new Random();
   private final Inventory inventory;
   private final int strength;
   // possibly make a class/record for EquipmentSlot?
@@ -12,7 +12,7 @@ public class Player extends Entity implements Attacker {
 
   public Player(int health, int strength) {
     super(health);
-    this.inventory = new Inventory(2);
+    this.inventory = new Inventory(5);
     this.strength = strength;
     this.equipped = Item.NOTHING;
   }
@@ -23,18 +23,32 @@ public class Player extends Entity implements Attacker {
 
   public void dropItem(Item item) {
     inventory.removeFromInventory(item.getName());
+    if (equipped == item) {
+      equipped = Item.NOTHING;
+    }
   }
 
   public Map<String, Item> viewInventory() {
     return inventory.getInventory();
   }
 
+  // this can return null!
+  public Item getFromInventory(Item item) {
+    return inventory.getInventory().get(item.getName());
+  }
+
   public void equipItem(Item item) {
+    Item targetItem = getFromInventory(item);
+    if (targetItem == null || targetItem.isNothing()) return;
     equipped = item;
   }
 
   public Item getEquipped() {
     return equipped;
+  }
+
+  public boolean hasItemEquipped() {
+    return equipped != Item.NOTHING;
   }
 
   @Override
@@ -44,15 +58,15 @@ public class Player extends Entity implements Attacker {
 
   @Override
   public int getDamage() {
-    int maxVariance = 3;
+    // Player damage variance is set to 3 (0-3)
+    int maxVariance = 4;
     int baseDamage = strength;
-    Item currentEquipped = getEquipped();
 
-    if (currentEquipped != Item.NOTHING) {
-      baseDamage += currentEquipped.getPower();
+    if (hasItemEquipped()) {
+      baseDamage += equipped.getPower();
     }
 
-    return baseDamage + (RANDOM.nextInt(maxVariance));
+    return baseDamage + (PLAYER_RANDOM.nextInt(maxVariance));
   }
 
   @Override
