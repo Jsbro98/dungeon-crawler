@@ -32,7 +32,7 @@ public class Player extends Entity implements Attacker {
     equipped = item;
   }
 
-  public Item getEquiped() {
+  public Item getEquipped() {
     return equipped;
   }
 
@@ -46,7 +46,7 @@ public class Player extends Entity implements Attacker {
     Random random = new Random();
     int maxVariance = 3;
     int baseDamage = strength;
-    Item currentEquipped = getEquiped();
+    Item currentEquipped = getEquipped();
 
     if (currentEquipped != Item.NOTHING) {
       baseDamage += currentEquipped.getPower();
