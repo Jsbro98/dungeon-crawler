@@ -2,7 +2,8 @@ package dungeon;
 
 public enum Item {
   // weapons
-  SWORD(ItemType.WEAPON, "Sword", 10), CLUB(ItemType.WEAPON, "Club", 5),
+  SWORD(ItemType.WEAPON, "Sword", 10),
+  CLUB(ItemType.WEAPON, "Club", 5),
 
   // potions
   HEALING_POTION(ItemType.POTION, "Healing Potion", 20),
