@@ -4,6 +4,8 @@ import java.util.Map;
 import java.util.Random;
 
 public class Player extends Entity implements Attacker {
+  // Player damage variance is set to 3 (0-3)
+  public static final int MAX_VARIANCE = 4;
   private static final Random PLAYER_RANDOM = new Random();
   private final Inventory inventory;
   private final int strength;
@@ -58,15 +60,18 @@ public class Player extends Entity implements Attacker {
 
   @Override
   public int getDamage() {
-    // Player damage variance is set to 3 (0-3)
-    int maxVariance = 4;
     int baseDamage = strength;
 
     if (hasItemEquipped()) {
       baseDamage += equipped.getPower();
     }
 
-    return baseDamage + (PLAYER_RANDOM.nextInt(maxVariance));
+    return baseDamage + (PLAYER_RANDOM.nextInt(getDamageVariance()));
+  }
+
+  @Override
+  public int getDamageVariance() {
+    return MAX_VARIANCE;
   }
 
   @Override
