@@ -73,9 +73,4 @@ public class Player extends Entity implements Attacker {
   public int getDamageVariance() {
     return MAX_VARIANCE;
   }
-
-  @Override
-  public void attack(Entity other) {
-    other.takeDamage(this.getDamage());
-  }
 }
