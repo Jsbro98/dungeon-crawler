@@ -1,18 +1,29 @@
 package dungeon;
 
-public class Ogre extends Entity {
-  private final int DAMAGE = 75;
+import java.util.Random;
 
-  public Ogre(int health) {
+public class Ogre extends Entity implements Attacker {
+  private static final Random OGRE_RANDOM = new Random();
+  private static final int MAX_VARIANCE = 5;
+  private final int strength;
+
+  public Ogre(int health, int strength) {
     super(health);
-  }
-
-  public void attack(Entity other) {
-    other.takeDamage(DAMAGE);
+    this.strength = strength;
   }
 
   @Override
   public String toString() {
     return "Ogre: health(" + getHealth() + ")";
+  }
+
+  @Override
+  public int getDamage() {
+    return strength + (OGRE_RANDOM.nextInt(getDamageVariance()));
+  }
+
+  @Override
+  public int getDamageVariance() {
+    return MAX_VARIANCE;
   }
 }
