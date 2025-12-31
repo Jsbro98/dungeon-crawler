@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Random;
 
 public class Player extends Entity implements Attacker {
+  private static final Random RANDOM = new Random();
   private final Inventory inventory;
   private final int strength;
   // possibly make a class/record for EquipmentSlot?
@@ -43,7 +44,6 @@ public class Player extends Entity implements Attacker {
 
   @Override
   public int getDamage() {
-    Random random = new Random();
     int maxVariance = 3;
     int baseDamage = strength;
     Item currentEquipped = getEquipped();
@@ -52,7 +52,7 @@ public class Player extends Entity implements Attacker {
       baseDamage += currentEquipped.getPower();
     }
 
-    return baseDamage + (random.nextInt(maxVariance));
+    return baseDamage + (RANDOM.nextInt(maxVariance));
   }
 
   @Override
