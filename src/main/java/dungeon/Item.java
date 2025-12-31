@@ -2,12 +2,15 @@ package dungeon;
 
 public enum Item {
   // weapons
-  SWORD(ItemType.WEAPON, "Sword", 10),
-  CLUB(ItemType.WEAPON, "Club", 5),
+  SWORD(ItemType.WEAPON, "Sword", 10), CLUB(ItemType.WEAPON, "Club", 5),
 
   // potions
   HEALING_POTION(ItemType.POTION, "Healing Potion", 20),
-  STRENGTH_POTION(ItemType.POTION, "Strength Potion", 10);
+  STRENGTH_POTION(ItemType.POTION, "Strength Potion", 10),
+
+  // misc types
+  // using NOTHING to replace null here as cases for NOTHING will have it provide 0, leaving semantics unaffected
+  NOTHING(ItemType.BLANK, "Nothing", 0);
 
 
   private final ItemType type;
@@ -35,6 +38,6 @@ public enum Item {
 
   // helper enum
   public enum ItemType {
-    WEAPON, POTION
+    WEAPON, POTION, BLANK
   }
 }
