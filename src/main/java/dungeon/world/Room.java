@@ -1,12 +1,14 @@
 package dungeon.world;
 
+import dungeon.Describable;
 import dungeon.Entity;
 
 import java.util.*;
 
-public class Room {
+public class Room implements Describable {
   private final List<Entity> entities;
   private final Map<String, Room> exits;
+  private String description;
 
   public Room() {
     this.entities = new ArrayList<>();
@@ -53,5 +55,15 @@ public class Room {
             "entities=" + entities +
             ", exits=" + exits +
             '}';
+  }
+
+  @Override
+  public String describe() {
+    return description;
+  }
+
+  @Override
+  public void setDescription(String description) {
+    this.description = description;
   }
 }
