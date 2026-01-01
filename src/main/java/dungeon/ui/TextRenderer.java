@@ -1,5 +1,6 @@
 package dungeon.ui;
 
+import dungeon.Describable;
 import dungeon.Entity;
 
 public class TextRenderer {
@@ -7,6 +8,10 @@ public class TextRenderer {
 
   public static void greetPlayer() {
     System.out.println("Welcome Player!");
+  }
+
+  public static void describe(Describable obj) {
+    IO.println(obj.describe());
   }
 
   public static void displayEntityStats(Entity entity) {
