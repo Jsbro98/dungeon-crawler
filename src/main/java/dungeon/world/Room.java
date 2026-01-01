@@ -2,10 +2,7 @@ package dungeon.world;
 
 import dungeon.Entity;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Room {
   private final List<Entity> entities;
@@ -24,6 +21,10 @@ public class Room {
     entities.add(entity);
   }
 
+  public boolean containsEntity(Entity entity) {
+    return entities.contains(entity);
+  }
+
   public void removeEntity(Entity entity) {
     entities.remove(entity);
   }
@@ -40,6 +41,10 @@ public class Room {
     }
 
     throw new IllegalArgumentException("Key provided for exit does not exist");
+  }
+
+  public Map<String, Room> getAllExits() {
+    return Collections.unmodifiableMap(exits);
   }
 
   @Override
