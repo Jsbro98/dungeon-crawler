@@ -2,6 +2,7 @@ package dungeon.ui;
 
 import dungeon.Describable;
 import dungeon.Entity;
+import dungeon.world.Room;
 
 public class TextRenderer {
   private TextRenderer() {}
@@ -12,6 +13,16 @@ public class TextRenderer {
 
   public static void describe(Describable obj) {
     IO.println(obj.describe());
+  }
+
+  public static void showRoomExits(Room room) {
+    StringBuilder exitBuilder = new StringBuilder();
+
+    for (String exit : room.getAllExits().keySet()) {
+      exitBuilder.append(exit).append(", ");
+    }
+
+    IO.println(exitBuilder.toString());
   }
 
   public static void displayEntityStats(Entity entity) {
