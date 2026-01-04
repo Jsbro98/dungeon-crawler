@@ -2,6 +2,7 @@ package dungeon.world;
 
 import dungeon.Describable;
 import dungeon.Entity;
+import dungeon.logic.RoomRegistry;
 
 import java.util.*;
 
@@ -9,16 +10,19 @@ public class Room implements Describable {
   private final List<Entity> entities;
   private final Map<String, Room> exits;
   private String description;
+  private final int id;
 
   public Room() {
     this.entities = new ArrayList<>();
     this.exits = new HashMap<>();
+    id = RoomRegistry.createRoomId();
   }
 
   public Room(String description) {
     this.entities = new ArrayList<>();
     this.exits = new HashMap<>();
     this.description = description;
+    id = RoomRegistry.createRoomId();
   }
 
   public boolean hasEntities() {
@@ -71,5 +75,9 @@ public class Room implements Describable {
   @Override
   public void setDescription(String description) {
     this.description = description;
+  }
+
+  public int getId() {
+    return id;
   }
 }
