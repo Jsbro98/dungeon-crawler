@@ -2,7 +2,10 @@ package dungeon.ui;
 
 import dungeon.Describable;
 import dungeon.Entity;
+import dungeon.Player;
 import dungeon.world.Room;
+
+import java.util.ArrayList;
 
 public class TextRenderer {
   private TextRenderer() {}
@@ -16,15 +19,30 @@ public class TextRenderer {
   }
 
   public static void showRoomExits(Room room) {
+    ArrayList<String> exits = new ArrayList<>(room.getAllExits().keySet());
     StringBuilder exitBuilder = new StringBuilder();
 
-    for (String exit : room.getAllExits().keySet()) {
+    for (String exit : exits) {
+      if (exit.equals(exits.getLast())) {
+        exitBuilder.append(exit);
+        continue;
+      }
+
       exitBuilder.append(exit).append(", ");
     }
 
     IO.println("This room has exits at:");
     IO.println(exitBuilder.toString());
     IO.println();
+  }
+
+  public static void printAllEnemies(Room room) {
+    if (room.hasEntities()) {
+      for (Entity entity : room.getEntities()) {
+        if (entity instanceof Player) continue;
+        IO.println(entity);
+      }
+    }
   }
 
   public static void displayCommands() {
