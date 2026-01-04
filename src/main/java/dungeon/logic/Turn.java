@@ -5,10 +5,13 @@ import dungeon.Entity;
 import dungeon.Player;
 import dungeon.world.Room;
 
+import java.util.Arrays;
+
 public class Turn {
 
   public <T extends Entity & Attacker> void handleBattle(Player player, T opponent) {
-    IO.println("Player sees: " + opponent.getClass().getName());
+    String opponentName = Arrays.stream(opponent.getClass().getName().split("\\.")).toList().getLast();
+    IO.println("Player sees: " + opponentName);
     IO.println("Player moves in to attack");
     while (player.isAlive() && opponent.isAlive()) {
       player.attack(opponent);
