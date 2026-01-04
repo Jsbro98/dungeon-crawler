@@ -22,7 +22,18 @@ public class TextRenderer {
       exitBuilder.append(exit).append(", ");
     }
 
+    IO.println("This room has exits at:");
     IO.println(exitBuilder.toString());
+    IO.println();
+  }
+
+  public static void displayCommands() {
+    IO.println("""
+            Commands:
+            1. go <direction>
+            2. attack
+            3. exit
+            """);
   }
 
   public static void printDirections() {
