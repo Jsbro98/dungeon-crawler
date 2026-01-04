@@ -25,6 +25,13 @@ public class TextRenderer {
     IO.println(exitBuilder.toString());
   }
 
+  public static void printDirections() {
+    IO.println("""
+            Which direction do you travel?
+            north, south, east, or west?
+            """);
+  }
+
   public static void displayEntityStats(Entity entity) {
     System.out.println("Health: " + entity.getHealth());
   }
