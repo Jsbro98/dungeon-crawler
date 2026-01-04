@@ -24,4 +24,16 @@ public class Game {
   public void moveToRoom(String direction) {
     currentRoom = turn.moveRoom(currentRoom, direction);
   }
+
+  public RoomRegistry getRoomRegistry() {
+    return roomRegistry;
+  }
+
+  public Room getCurrentRoom() {
+    return currentRoom;
+  }
+
+  public void initCurrentRoom() {
+    currentRoom = roomRegistry.getRoom(1);
+  }
 }
