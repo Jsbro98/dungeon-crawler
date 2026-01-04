@@ -1,19 +1,23 @@
 package dungeon;
 
+import dungeon.logic.Game;
 import dungeon.logic.Turn;
 import dungeon.ui.TextRenderer;
 import dungeon.world.Room;
 
 public class Main {
   static void main(String[] args) {
-    Room roomOne = new Room();
-    roomOne.setDescription("A cold tundra with no trees for miles");
-    Room roomTwo = new Room();
-    roomTwo.setDescription("A dense forest with trees everywhere. creatures lurk in the fog...");
-    Room currentRoom = roomOne;
+    Game gameLoop = new Game(new Player(100, 10));
 
+    Room roomOne = new Room("A cold tundra with no trees for miles");
+    Room roomTwo = new Room("A dense forest with trees everywhere. creatures lurk in the fog...");
     roomOne.setExit("north", roomTwo);
     roomTwo.setExit("south", roomOne);
+
+    gameLoop.getRoomRegistry().addRoom(roomOne);
+    gameLoop.getRoomRegistry().addRoom(roomTwo);
+    gameLoop.initCurrentRoom();
+
 
     Player player = new Player(100, 10);
     Ogre ogre = new Ogre(100, 10);
@@ -28,14 +32,13 @@ public class Main {
     player.equipItem(Item.SWORD);
 
     Turn turn = new Turn();
-    currentRoom = turn.moveRoom(roomOne, "north");
+    gameLoop.moveToRoom("north");
     IO.print("Current Room: ");
-    TextRenderer.describe(roomTwo);
-    if (currentRoom == roomTwo && roomTwo.containsEntity(ogre)) {
+    TextRenderer.describe(gameLoop.getCurrentRoom());
+    if (gameLoop.getCurrentRoom() == roomTwo && roomTwo.containsEntity(ogre)) {
       turn.handleBattle(player, ogre);
     }
 
-    turn = new Turn();
     player.heal(25);
     IO.println(player);
   }
