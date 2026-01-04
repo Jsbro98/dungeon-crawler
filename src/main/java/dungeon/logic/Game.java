@@ -2,11 +2,13 @@ package dungeon.logic;
 
 import dungeon.Player;
 import dungeon.ui.TextRenderer;
+import dungeon.world.Room;
 
 public class Game {
   private final Player player;
   private final Turn turn;
   private final RoomRegistry roomRegistry;
+  private Room currentRoom;
 
   public Game(Player player) {
     this.player = player;
@@ -16,5 +18,9 @@ public class Game {
 
   public void startGame() {
     TextRenderer.greetPlayer();
+  }
+
+  public void moveToRoom(String direction) {
+    currentRoom = turn.moveRoom(currentRoom, direction);
   }
 }
