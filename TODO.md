@@ -10,7 +10,7 @@
 
 ## UI
 - implement TextRenderer methods for player text info
-- add InputHandler class for asking the player questions
+- should InputHandler live in TextRenderer?
 ---
 
 ## World
