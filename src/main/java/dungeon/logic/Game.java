@@ -21,6 +21,34 @@ public class Game {
 
   public void startGame() {
     TextRenderer.greetPlayer();
+    showRoomInfo();
+    showExits();
+    while (currentPlayer.isAlive()) {
+      showCommands();
+      String command = userInput.getCommand();
+
+      if (command.equals("exit")) break;
+
+      if (command.startsWith("go ")) {
+        String direction = command.substring(3);
+        moveCurrentRoom(direction);
+        showRoomInfo();
+        showExits();
+      }
+    }
+  }
+
+  public void showCommands() {
+    TextRenderer.displayCommands();
+  }
+
+  public void showExits() {
+    TextRenderer.showRoomExits(currentRoom);
+  }
+
+  public void showRoomInfo() {
+    IO.print("The room you're currently in is ");
+    TextRenderer.describe(currentRoom);
   }
 
   public void moveCurrentRoom(String direction) {
