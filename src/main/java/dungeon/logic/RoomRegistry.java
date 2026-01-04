@@ -18,7 +18,7 @@ public class RoomRegistry {
     return ROOM_COUNTER;
   }
 
-  public void addRoom(Room room) {
+  public void register(Room room) {
     registry.put(room.getId(), room);
   }
 
