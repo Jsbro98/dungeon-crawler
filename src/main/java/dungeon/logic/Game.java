@@ -1,6 +1,5 @@
 package dungeon.logic;
 
-import dungeon.Entity;
 import dungeon.Ogre;
 import dungeon.Player;
 import dungeon.ui.InputHandler;
