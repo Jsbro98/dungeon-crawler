@@ -1,6 +1,7 @@
 package dungeon.logic;
 
 import dungeon.Player;
+import dungeon.ui.InputHandler;
 import dungeon.ui.TextRenderer;
 import dungeon.world.Room;
 
@@ -8,12 +9,14 @@ public class Game {
   private final Player currentPlayer;
   private final Turn turn;
   private final RoomRegistry roomRegistry;
+  private final InputHandler userInput;
   private Room currentRoom;
 
   public Game(Player player) {
     this.currentPlayer = player;
     this.turn = new Turn();
     this.roomRegistry = new RoomRegistry();
+    this.userInput = new InputHandler();
   }
 
   public void startGame() {
