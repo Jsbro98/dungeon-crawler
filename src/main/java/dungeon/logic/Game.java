@@ -1,5 +1,7 @@
 package dungeon.logic;
 
+import dungeon.Entity;
+import dungeon.Ogre;
 import dungeon.Player;
 import dungeon.ui.InputHandler;
 import dungeon.ui.TextRenderer;
@@ -20,6 +22,8 @@ public class Game {
   }
 
   public void startGame() {
+    initCurrentRoom();
+
     TextRenderer.greetPlayer();
     showRoomInfo();
     showExits();
@@ -32,6 +36,7 @@ public class Game {
       if (command.startsWith("go ")) {
         String direction = command.substring(3);
         moveCurrentRoom(direction);
+        generateEnemy(5);
         showRoomInfo();
         showExits();
       }
@@ -49,6 +54,17 @@ public class Game {
   public void showRoomInfo() {
     IO.print("The room you're currently in is ");
     TextRenderer.describe(currentRoom);
+
+    if (currentRoom.hasEntities()) {
+      IO.println("Current enemies: ");
+      TextRenderer.printAllEnemies(currentRoom);
+    }
+  }
+
+  public void generateEnemy(int numberOfEnemies) {
+    for (int i = 0; i < numberOfEnemies; i++) {
+      currentRoom.addEntity(new Ogre(100, 5));
+    }
   }
 
   public void moveCurrentRoom(String direction) {
