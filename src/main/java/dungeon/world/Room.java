@@ -15,6 +15,12 @@ public class Room implements Describable {
     this.exits = new HashMap<>();
   }
 
+  public Room(String description) {
+    this.entities = new ArrayList<>();
+    this.exits = new HashMap<>();
+    this.description = description;
+  }
+
   public boolean hasEntities() {
     return !entities.isEmpty();
   }
