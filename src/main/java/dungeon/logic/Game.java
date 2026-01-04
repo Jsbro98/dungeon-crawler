@@ -20,6 +20,7 @@ public class Game {
     TextRenderer.greetPlayer();
   }
 
+  // TODO: change this delegation to make more sense
   public void moveToRoom(String direction) {
     currentRoom = turn.moveRoom(currentRoom, direction);
   }
