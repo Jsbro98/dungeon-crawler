@@ -80,4 +80,8 @@ public class Room implements Describable {
   public int getId() {
     return id;
   }
+
+  public List<Entity> getEntities() {
+    return Collections.unmodifiableList(entities);
+  }
 }
