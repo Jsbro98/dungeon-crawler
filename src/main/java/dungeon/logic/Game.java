@@ -1,10 +1,14 @@
 package dungeon.logic;
 
+import dungeon.Entity;
 import dungeon.Ogre;
 import dungeon.Player;
 import dungeon.ui.InputHandler;
 import dungeon.ui.TextRenderer;
 import dungeon.world.Room;
+
+import java.util.List;
+import java.util.Random;
 
 public class Game {
   private final Player currentPlayer;
@@ -21,6 +25,7 @@ public class Game {
   }
 
   public void startGame() {
+    Random rand = new Random();
     initCurrentRoom();
 
     TextRenderer.greetPlayer();
@@ -38,6 +43,14 @@ public class Game {
         generateEnemy(5);
         showRoomInfo();
         showExits();
+      }
+
+      if (command.equals("attack")) {
+        if (currentRoom.hasEntities()) {
+          List<Entity> entityList = currentRoom.getEntities();
+          Entity target = entityList.get(rand.nextInt(entityList.size()));
+          turn.handleBattle(currentPlayer, target);
+        }
       }
     }
   }
