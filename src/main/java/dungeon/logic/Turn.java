@@ -9,13 +9,17 @@ import java.util.Arrays;
 
 public class Turn {
 
-  public <T extends Entity & Attacker> void handleBattle(Player player, T opponent) {
+  /*TODO: find a way to reimplement this
+      function where opponent doesn't need to be casted*/
+  public void handleBattle(Player player, Entity opponent) {
     String opponentName = Arrays.stream(opponent.getClass().getName().split("\\.")).toList().getLast();
     IO.println("Player sees: " + opponentName);
     IO.println("Player moves in to attack");
+    // adding a cast here, will fix
+    Attacker target = (Attacker) opponent;
     while (player.isAlive() && opponent.isAlive()) {
       player.attack(opponent);
-      opponent.attack(player);
+      target.attack(player);
 
       IO.println(opponent);
       IO.println(player);
