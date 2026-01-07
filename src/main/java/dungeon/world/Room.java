@@ -46,8 +46,6 @@ public class Room implements Describable {
   }
 
   public Room getExit(String direction) {
-    direction = direction.trim().toLowerCase();
-
     if (exits.containsKey(direction)) {
       return exits.get(direction);
     }
