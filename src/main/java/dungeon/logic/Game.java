@@ -27,11 +27,7 @@ public class Game {
   }
 
   public void startGame() {
-    initCurrentRoom();
-
-    TextRenderer.greetPlayer();
-    showRoomInfo();
-    showExits();
+    configStart();
     while (currentPlayer.isAlive()) {
       showCommands();
       String command = userInput.getCommand();
@@ -44,16 +40,28 @@ public class Game {
 
       if (command.equals("heal")) {
         currentPlayer.heal(GAME_RANDOM.nextInt(25));
+        IO.println(currentPlayer);
       }
 
       if (command.equals("attack")) {
         playerAttack();
       }
 
+      if (command.equals("directions")) {
+        showExits();
+      }
+
       if (command.equals("inventory")) {
         displayPlayerInventory();
       }
     }
+  }
+
+  private void configStart() {
+    initCurrentRoom();
+    TextRenderer.greetPlayer();
+    showRoomInfo();
+    showExits();
   }
 
   public void playerMove(String command) {

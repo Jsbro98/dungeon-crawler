@@ -47,13 +47,14 @@ public class TextRenderer {
   }
 
   public static void displayCommands() {
-    IO.println("""
+    IO.print("""
             Commands:
             1. go <direction>
             2. attack
             3. inventory
             4. heal
-            5. exit
+            5. directions
+            6. exit
             """);
   }
 
