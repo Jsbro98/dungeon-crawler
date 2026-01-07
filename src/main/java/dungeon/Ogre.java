@@ -2,7 +2,7 @@ package dungeon;
 
 import java.util.Random;
 
-public class Ogre extends Entity implements Attacker {
+public class Ogre extends Combatant {
   private static final Random OGRE_RANDOM = new Random();
   private static final int MAX_VARIANCE = 5;
   private final int strength;

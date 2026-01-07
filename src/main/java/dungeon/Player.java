@@ -3,7 +3,7 @@ package dungeon;
 import java.util.Map;
 import java.util.Random;
 
-public class Player extends Entity implements Attacker {
+public class Player extends Combatant {
   // Player damage variance is set to 3 (0-3)
   public static final int MAX_VARIANCE = 4;
   private static final Random PLAYER_RANDOM = new Random();
@@ -34,9 +34,11 @@ public class Player extends Entity implements Attacker {
     return inventory.getInventory();
   }
 
-  // this can return null!
   public Item getFromInventory(Item item) {
-    return inventory.getInventory().get(item.getName());
+    Item wantedItem = inventory.getInventory().get(item.getName());
+    if (wantedItem == null) throw new NullPointerException("Item returned from inventory is null");
+
+    return wantedItem;
   }
 
   public void equipItem(Item item) {
