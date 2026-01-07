@@ -63,7 +63,7 @@ public class Room implements Describable {
   public String toString() {
     return "Room{" +
             "entities=" + entities +
-            ", exits=" + exits +
+            ", exits=" + exits.keySet() +
             '}';
   }
 
