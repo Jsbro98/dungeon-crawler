@@ -2,6 +2,7 @@ package dungeon.ui;
 
 import dungeon.Describable;
 import dungeon.Entity;
+import dungeon.Item;
 import dungeon.Player;
 import dungeon.world.Room;
 
@@ -50,8 +51,16 @@ public class TextRenderer {
             Commands:
             1. go <direction>
             2. attack
-            3. exit
+            3. inventory
+            4. heal
+            5. exit
             """);
+  }
+
+  public static void printPlayerInventory(Player player) {
+    for (Item item : player.viewInventory().values()) {
+      IO.println("Item: " + item);
+    }
   }
 
   public static void printDirections() {
