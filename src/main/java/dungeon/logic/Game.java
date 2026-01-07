@@ -1,5 +1,6 @@
 package dungeon.logic;
 
+import dungeon.Combatant;
 import dungeon.Entity;
 import dungeon.Ogre;
 import dungeon.Player;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Game {
+  private static final Random GAME_RANDOM = new Random();
   private final Player currentPlayer;
   private final Turn turn;
   private final RoomRegistry roomRegistry;
@@ -25,7 +27,6 @@ public class Game {
   }
 
   public void startGame() {
-    Random rand = new Random();
     initCurrentRoom();
 
     TextRenderer.greetPlayer();
@@ -38,21 +39,46 @@ public class Game {
       if (command.equals("exit")) break;
 
       if (command.startsWith("go ")) {
-        String direction = command.substring(3);
-        moveCurrentRoom(direction);
-        generateEnemy(5);
-        showRoomInfo();
-        showExits();
+        playerMove(command);
+      }
+
+      if (command.equals("heal")) {
+        currentPlayer.heal(GAME_RANDOM.nextInt(25));
       }
 
       if (command.equals("attack")) {
-        if (currentRoom.hasEntities()) {
-          List<Entity> entityList = currentRoom.getEntities();
-          Entity target = entityList.get(rand.nextInt(entityList.size()));
-          turn.handleBattle(currentPlayer, target);
-        }
+        playerAttack();
+      }
+
+      if (command.equals("inventory")) {
+        displayPlayerInventory();
       }
     }
+  }
+
+  public void playerMove(String command) {
+    String direction = command.substring(3);
+    moveCurrentRoom(direction);
+    generateEnemy(5);
+    showRoomInfo();
+    showExits();
+  }
+
+  public void playerAttack() {
+    if (currentRoom.hasEntities()) {
+      List<Entity> entityList = currentRoom.getEntities();
+      Entity target = entityList.get(GAME_RANDOM.nextInt(entityList.size()));
+
+      if (target instanceof Combatant enemy) {
+        turn.handleBattle(currentPlayer, enemy);
+      } else {
+        currentPlayer.attack(target);
+      }
+    }
+  }
+
+  public void displayPlayerInventory() {
+    TextRenderer.printPlayerInventory(currentPlayer);
   }
 
   public void showCommands() {
@@ -97,6 +123,5 @@ public class Game {
 
   public void initCurrentRoom() {
     currentRoom = roomRegistry.getRoom(1);
-    currentRoom.addEntity(getCurrentPlayer());
   }
 }
