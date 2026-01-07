@@ -1,16 +1,13 @@
 package dungeon.logic;
 
-import dungeon.Attacker;
 import dungeon.Combatant;
-import dungeon.Entity;
-import dungeon.Player;
 import dungeon.world.Room;
 
 import java.util.Arrays;
 
 public class Turn {
 
-  public void handleBattle(Player player, Combatant opponent) {
+  public void handleBattle(Combatant player, Combatant opponent) {
     String opponentName = Arrays.stream(opponent.getClass().getName().split("\\.")).toList().getLast();
     IO.println("Player sees: " + opponentName);
     IO.println("Player moves in to attack");
