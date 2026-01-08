@@ -8,6 +8,8 @@ import dungeon.ui.InputHandler;
 import dungeon.ui.TextRenderer;
 import dungeon.world.Room;
 
+import static dungeon.logic.CommandDispatcher.ParsedCommand;
+
 import java.util.List;
 import java.util.Random;
 
@@ -30,29 +32,17 @@ public class Game {
     configStart();
     while (currentPlayer.isAlive()) {
       showCommands();
-      String command = userInput.getCommand();
+      ParsedCommand parsedCommand = CommandDispatcher.dispatchCommand(userInput.getCommand());
 
-      if (command.equals("exit")) break;
-
-      if (command.startsWith("go ")) {
-        playerMove(command);
-      }
-
-      if (command.equals("heal")) {
-        currentPlayer.heal(GAME_RANDOM.nextInt(25));
-        IO.println(currentPlayer);
-      }
-
-      if (command.equals("attack")) {
-        playerAttack();
-      }
-
-      if (command.equals("directions")) {
-        showExits();
-      }
-
-      if (command.equals("inventory")) {
-        displayPlayerInventory();
+      switch (parsedCommand.type()) {
+        case EXIT -> {
+          return;
+        }
+        case INVENTORY -> displayPlayerInventory();
+        case ATTACK -> playerAttack();
+        case MOVE -> playerMove(parsedCommand.argument());
+        case HEAL -> playerHeal();
+        case DIRECTIONS -> showExits();
       }
     }
   }
@@ -64,8 +54,7 @@ public class Game {
     showExits();
   }
 
-  public void playerMove(String command) {
-    String direction = command.substring(3);
+  public void playerMove(String direction) {
     moveCurrentRoom(direction);
     generateEnemy(5);
     showRoomInfo();
@@ -73,16 +62,24 @@ public class Game {
   }
 
   public void playerAttack() {
-    if (currentRoom.hasEntities()) {
-      List<Entity> entityList = currentRoom.getEntities();
-      Entity target = entityList.get(GAME_RANDOM.nextInt(entityList.size()));
-
-      if (target instanceof Combatant enemy) {
-        turn.handleBattle(currentPlayer, enemy);
-      } else {
-        currentPlayer.attack(target);
-      }
+    if (!currentRoom.hasEntities()) {
+      IO.println("There's nothing to attack here.");
+      return;
     }
+
+    List<Entity> entityList = currentRoom.getEntities();
+    Entity target = entityList.get(GAME_RANDOM.nextInt(entityList.size()));
+
+    if (target instanceof Combatant enemy) {
+      turn.handleBattle(currentPlayer, enemy);
+    } else {
+      currentPlayer.attack(target);
+    }
+  }
+
+  public void playerHeal() {
+    currentPlayer.heal(GAME_RANDOM.nextInt(25));
+    IO.println(currentPlayer);
   }
 
   public void displayPlayerInventory() {
