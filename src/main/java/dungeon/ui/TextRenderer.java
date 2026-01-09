@@ -46,6 +46,11 @@ public class TextRenderer {
     }
   }
 
+  public static void displayDeathMessage() {
+    IO.println("You died! Game Over.\n" +
+            "Thanks for playing.");
+  }
+
   public static void displayCommands() {
     IO.print("""
             Commands:
