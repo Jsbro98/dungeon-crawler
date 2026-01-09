@@ -9,8 +9,8 @@ import java.util.*;
 public class Room implements Describable {
   private final List<Entity> entities;
   private final Map<String, Room> exits;
-  private String description;
   private final int id;
+  private String description;
 
   public Room() {
     this.entities = new ArrayList<>();
@@ -57,12 +57,17 @@ public class Room implements Describable {
     return Collections.unmodifiableMap(exits);
   }
 
+  public int getId() {
+    return id;
+  }
+
+  public List<Entity> getEntities() {
+    return Collections.unmodifiableList(entities);
+  }
+
   @Override
   public String toString() {
-    return "Room{" +
-            "entities=" + entities +
-            ", exits=" + exits.keySet() +
-            '}';
+    return "Room{" + "entities=" + entities + ", exits=" + exits.keySet() + '}';
   }
 
   @Override
@@ -73,13 +78,5 @@ public class Room implements Describable {
   @Override
   public void setDescription(String description) {
     this.description = description;
-  }
-
-  public int getId() {
-    return id;
-  }
-
-  public List<Entity> getEntities() {
-    return Collections.unmodifiableList(entities);
   }
 }
