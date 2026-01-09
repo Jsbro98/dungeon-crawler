@@ -45,6 +45,8 @@ public class Game {
         case DIRECTIONS -> showExits();
       }
     }
+
+    TextRenderer.displayDeathMessage();
   }
 
   public void generateEnemy(int numberOfEnemies) {
