@@ -5,7 +5,7 @@ import dungeon.world.Room;
 
 import java.util.Arrays;
 
-public class Turn {
+public class BehaviorCoordinator {
 
   public void handleBattle(Combatant player, Combatant opponent) {
     String opponentName = Arrays.stream(opponent.getClass().getName().split("\\.")).toList().getLast();

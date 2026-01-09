@@ -16,14 +16,14 @@ import java.util.Random;
 public class Game {
   private static final Random GAME_RANDOM = new Random();
   private final Player currentPlayer;
-  private final Turn turn;
+  private final BehaviorCoordinator behaviorCoordinator;
   private final RoomRegistry roomRegistry;
   private final InputHandler userInput;
   private Room currentRoom;
 
   public Game(Player player) {
     this.currentPlayer = player;
-    this.turn = new Turn();
+    this.behaviorCoordinator = new BehaviorCoordinator();
     this.roomRegistry = new RoomRegistry();
     this.userInput = new InputHandler();
   }
@@ -54,7 +54,7 @@ public class Game {
   }
 
   public void moveCurrentRoom(String direction) {
-    currentRoom = turn.moveRoom(currentRoom, direction);
+    currentRoom = behaviorCoordinator.moveRoom(currentRoom, direction);
   }
 
   public void addRoom(Room room) {
@@ -97,7 +97,7 @@ public class Game {
     Entity target = entityList.get(GAME_RANDOM.nextInt(entityList.size()));
 
     if (target instanceof Combatant enemy) {
-      turn.handleBattle(currentPlayer, enemy);
+      behaviorCoordinator.handleBattle(currentPlayer, enemy);
     } else {
       currentPlayer.attack(target);
     }
