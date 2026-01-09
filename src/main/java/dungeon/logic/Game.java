@@ -47,63 +47,6 @@ public class Game {
     }
   }
 
-  private void configStart() {
-    initCurrentRoom();
-    TextRenderer.greetPlayer();
-    showRoomInfo();
-    showExits();
-  }
-
-  public void playerMove(String direction) {
-    moveCurrentRoom(direction);
-    generateEnemy(5);
-    showRoomInfo();
-    showExits();
-  }
-
-  public void playerAttack() {
-    if (!currentRoom.hasEntities()) {
-      IO.println("There's nothing to attack here.");
-      return;
-    }
-
-    List<Entity> entityList = currentRoom.getEntities();
-    Entity target = entityList.get(GAME_RANDOM.nextInt(entityList.size()));
-
-    if (target instanceof Combatant enemy) {
-      turn.handleBattle(currentPlayer, enemy);
-    } else {
-      currentPlayer.attack(target);
-    }
-  }
-
-  public void playerHeal() {
-    currentPlayer.heal(GAME_RANDOM.nextInt(25));
-    IO.println(currentPlayer);
-  }
-
-  public void displayPlayerInventory() {
-    TextRenderer.printPlayerInventory(currentPlayer);
-  }
-
-  public void showCommands() {
-    TextRenderer.displayCommands();
-  }
-
-  public void showExits() {
-    TextRenderer.showRoomExits(currentRoom);
-  }
-
-  public void showRoomInfo() {
-    IO.print("The room you're currently in is ");
-    TextRenderer.describe(currentRoom);
-
-    if (currentRoom.hasEntities()) {
-      IO.println("Current enemies: ");
-      TextRenderer.printAllEnemies(currentRoom);
-    }
-  }
-
   public void generateEnemy(int numberOfEnemies) {
     for (int i = 0; i < numberOfEnemies; i++) {
       currentRoom.addEntity(new Ogre(100, 5));
@@ -128,5 +71,62 @@ public class Game {
 
   public void initCurrentRoom() {
     currentRoom = roomRegistry.getRoom(1);
+  }
+
+  private void configStart() {
+    initCurrentRoom();
+    TextRenderer.greetPlayer();
+    showRoomInfo();
+    showExits();
+  }
+
+  private void playerMove(String direction) {
+    moveCurrentRoom(direction);
+    generateEnemy(5);
+    showRoomInfo();
+    showExits();
+  }
+
+  private void playerAttack() {
+    if (!currentRoom.hasEntities()) {
+      IO.println("There's nothing to attack here.");
+      return;
+    }
+
+    List<Entity> entityList = currentRoom.getEntities();
+    Entity target = entityList.get(GAME_RANDOM.nextInt(entityList.size()));
+
+    if (target instanceof Combatant enemy) {
+      turn.handleBattle(currentPlayer, enemy);
+    } else {
+      currentPlayer.attack(target);
+    }
+  }
+
+  private void playerHeal() {
+    currentPlayer.heal(GAME_RANDOM.nextInt(25));
+    IO.println(currentPlayer);
+  }
+
+  private void displayPlayerInventory() {
+    TextRenderer.printPlayerInventory(currentPlayer);
+  }
+
+  private void showCommands() {
+    TextRenderer.displayCommands();
+  }
+
+  private void showExits() {
+    TextRenderer.showRoomExits(currentRoom);
+  }
+
+  private void showRoomInfo() {
+    IO.print("The room you're currently in is ");
+    TextRenderer.describe(currentRoom);
+
+    if (currentRoom.hasEntities()) {
+      IO.println("Current enemies: ");
+      TextRenderer.printAllEnemies(currentRoom);
+    }
   }
 }
