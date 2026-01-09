@@ -9,11 +9,4 @@ public class InputHandler {
     IO.print("> ");
     return userIn.nextLine().trim().toLowerCase();
   }
-
-  // TODO: add validation to return string
-  public String getMoveDirection() {
-    IO.println("Which direction would you like to go?");
-    TextRenderer.printDirections();
-    return getCommand();
-  }
 }
