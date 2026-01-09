@@ -7,6 +7,7 @@ import dungeon.logic.RoomRegistry;
 import java.util.*;
 
 public class Room implements Describable {
+  private static int ROOM_COUNTER = 0;
   private final List<Entity> entities;
   private final Map<String, Room> exits;
   private final int id;
@@ -15,14 +16,19 @@ public class Room implements Describable {
   public Room() {
     this.entities = new ArrayList<>();
     this.exits = new HashMap<>();
-    id = RoomRegistry.createRoomId();
+    id = createRoomId();
   }
 
   public Room(String description) {
     this.entities = new ArrayList<>();
     this.exits = new HashMap<>();
     this.description = description;
-    id = RoomRegistry.createRoomId();
+    id = createRoomId();
+  }
+
+  public static int createRoomId() {
+    ROOM_COUNTER++;
+    return ROOM_COUNTER;
   }
 
   public boolean hasEntities() {

@@ -7,15 +7,9 @@ import java.util.Map;
 
 public class RoomRegistry {
   private final Map<Integer, Room> registry;
-  private static int ROOM_COUNTER = 0;
 
   public RoomRegistry() {
     this.registry = new HashMap<>();
-  }
-
-  public static int createRoomId() {
-    ROOM_COUNTER++;
-    return ROOM_COUNTER;
   }
 
   public void register(Room room) {
