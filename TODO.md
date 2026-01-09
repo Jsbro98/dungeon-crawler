@@ -2,7 +2,6 @@
 
 ## Logic
 - implement Room generator (static maybe? random game object generator?)
-- Turn needs to be renamed and repurposed
 - implement DamageStrategy for classes (or compose a object for it)
 - add Spawner class for entity creation
 - implement Item/Inventory logic
