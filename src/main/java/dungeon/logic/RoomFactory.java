@@ -20,6 +20,8 @@ public class RoomFactory {
     add("a cave with glowing cracks showing through the immense walls");
   }};
 
+  private RoomFactory() {}
+
   public static Room createRoomWithDescription() {
     return new Room(getRandomDescription());
   }
