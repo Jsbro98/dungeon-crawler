@@ -2,25 +2,28 @@ package dungeon.world;
 
 import dungeon.Describable;
 import dungeon.Entity;
-import dungeon.logic.RoomRegistry;
+import dungeon.Item;
 
 import java.util.*;
 
 public class Room implements Describable {
   private static int ROOM_COUNTER = 0;
   private final List<Entity> entities;
+  private final Map<String, Item> items;
   private final Map<String, Room> exits;
   private final int id;
   private String description;
 
   public Room() {
     this.entities = new ArrayList<>();
+    this.items = new HashMap<>();
     this.exits = new HashMap<>();
     id = createRoomId();
   }
 
   public Room(String description) {
     this.entities = new ArrayList<>();
+    this.items = new HashMap<>();
     this.exits = new HashMap<>();
     this.description = description;
     id = createRoomId();
@@ -46,6 +49,27 @@ public class Room implements Describable {
   public void removeEntity(Entity entity) {
     entities.remove(entity);
   }
+
+  public void addItem(Item item) {
+    items.put(item.getName(), item);
+  }
+
+  public boolean containsItem(String name) {
+    return items.containsKey(name);
+  }
+
+  public void removeItem(Item item) {
+    items.remove(item.getName());
+  }
+
+  public Item getItem(String name) {
+    Item item = items.get(name);
+
+    if (item == null) throw new NullPointerException("item is null");
+
+    return item;
+  }
+
 
   public void setExit(String exitDirection, Room room) {
     exits.put(exitDirection, room);
