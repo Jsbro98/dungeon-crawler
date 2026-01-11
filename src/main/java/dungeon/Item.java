@@ -1,5 +1,8 @@
 package dungeon;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 public enum Item {
   // weapons
   SWORD(ItemType.WEAPON, "Sword", 10),
@@ -13,7 +16,10 @@ public enum Item {
   // using NOTHING to replace null here as cases for NOTHING will have it provide 0, leaving semantics unaffected
   NOTHING(ItemType.BLANK, "Nothing", 0);
 
-
+  private static final Random ITEM_RANDOM = new Random();
+  private static final List<Item> OBTAINABLE_ITEMS = Arrays.stream(Item.values())
+          .filter(item -> item != NOTHING)
+          .toList();
   private final ItemType type;
   private final String name;
   private final int power;
@@ -22,6 +28,11 @@ public enum Item {
     this.type = type;
     this.name = name;
     this.power = power;
+  }
+
+  public static Item getRandomItem() {
+    int index = ITEM_RANDOM.nextInt(OBTAINABLE_ITEMS.size());
+    return OBTAINABLE_ITEMS.get(index);
   }
 
   // getters
