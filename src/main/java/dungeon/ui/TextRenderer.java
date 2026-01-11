@@ -46,6 +46,14 @@ public class TextRenderer {
     }
   }
 
+  public static void printAllItems(Room room) {
+    if (room.hasItems()) {
+      for (Item item : room.getItems()) {
+        IO.println(item);
+      }
+    }
+  }
+
   public static void displayDeathMessage() {
     IO.println("You died! Game Over.\n" +
             "Thanks for playing.");
