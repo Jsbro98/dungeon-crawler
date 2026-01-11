@@ -38,6 +38,10 @@ public class Room implements Describable {
     return !entities.isEmpty();
   }
 
+  public boolean hasItems() {
+    return !items.isEmpty();
+  }
+
   public void addEntity(Entity entity) {
     entities.add(entity);
   }
@@ -50,16 +54,19 @@ public class Room implements Describable {
     entities.remove(entity);
   }
 
+  // FIXME: code smell on the toLowerCase. Read below
   public void addItem(Item item) {
-    items.put(item.getName(), item);
+    items.put(item.getName().toLowerCase(), item);
   }
 
   public boolean containsItem(String name) {
     return items.containsKey(name);
   }
 
+  // FIXME: item adding and removal relies on String.toLowerCase
+  //  look into a fix for it
   public void removeItem(Item item) {
-    items.remove(item.getName());
+    items.remove(item.getName().toLowerCase());
   }
 
   public Item getItem(String name) {
@@ -93,6 +100,10 @@ public class Room implements Describable {
 
   public List<Entity> getEntities() {
     return Collections.unmodifiableList(entities);
+  }
+
+  public List<Item> getItems() {
+    return items.values().stream().toList();
   }
 
   @Override
