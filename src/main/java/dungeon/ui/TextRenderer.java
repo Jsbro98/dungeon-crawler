@@ -59,7 +59,8 @@ public class TextRenderer {
             3. inventory
             4. heal
             5. directions
-            6. exit
+            6. pickup <item>
+            7. exit
             """);
   }
 
