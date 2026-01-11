@@ -14,6 +14,9 @@ public class CommandDispatcher {
         if (input.startsWith("go ")) {
           String direction = input.substring(3);
           yield new ParsedCommand(Command.MOVE, direction);
+        } else if (input.startsWith("pickup ")) {
+          String item = input.substring(7);
+          yield new ParsedCommand(Command.PICKUP, item);
         } else {
           throw new IllegalArgumentException("unexpected input: " + input);
         }
@@ -22,12 +25,7 @@ public class CommandDispatcher {
   }
 
   public enum Command {
-    MOVE,
-    ATTACK,
-    HEAL,
-    DIRECTIONS,
-    INVENTORY,
-    EXIT
+    MOVE, ATTACK, HEAL, DIRECTIONS, INVENTORY, PICKUP, EXIT
   }
 
   public record ParsedCommand(Command type, String argument) {
