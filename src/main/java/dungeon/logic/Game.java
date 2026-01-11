@@ -1,9 +1,6 @@
 package dungeon.logic;
 
-import dungeon.Combatant;
-import dungeon.Entity;
-import dungeon.Ogre;
-import dungeon.Player;
+import dungeon.*;
 import dungeon.ui.InputHandler;
 import dungeon.ui.TextRenderer;
 import dungeon.world.Room;
@@ -38,6 +35,7 @@ public class Game {
         case EXIT -> {
           return;
         }
+        case PICKUP -> playerPickup(parsedCommand.argument());
         case INVENTORY -> displayPlayerInventory();
         case ATTACK -> playerAttack();
         case MOVE -> playerMove(parsedCommand.argument());
@@ -52,6 +50,12 @@ public class Game {
   public void generateEnemy(int numberOfEnemies) {
     for (int i = 0; i < numberOfEnemies; i++) {
       currentRoom.addEntity(new Ogre(100, 5));
+    }
+  }
+
+  public void generateItems(int numberOfItems) {
+    for (int i = 0; i < numberOfItems; i++) {
+      currentRoom.addItem(Item.getRandomItem());
     }
   }
 
@@ -75,6 +79,10 @@ public class Game {
     currentRoom = roomRegistry.getRoom(1);
   }
 
+  private boolean currentRoomHasNoEntities() {
+    return currentRoom.getEntities().isEmpty();
+  }
+
   private void configStart() {
     initCurrentRoom();
     TextRenderer.greetPlayer();
@@ -82,9 +90,22 @@ public class Game {
     showExits();
   }
 
+  // FIXME: this works fine for single word items like Item.SWORD
+  //  for items such as Item.HEALING_POTION, it gets dodgy
+  private void playerPickup(String argument) {
+    if (currentRoom.containsItem(argument)) {
+      Item item = currentRoom.getItem(argument);
+      currentPlayer.pickupItem(item);
+      currentRoom.removeItem(item);
+    }
+  }
+
   private void playerMove(String direction) {
     moveCurrentRoom(direction);
-    generateEnemy(5);
+    if (currentRoomHasNoEntities()) {
+      generateEnemy(GAME_RANDOM.nextInt(3));
+    }
+    generateItems(GAME_RANDOM.nextInt(2));
     showRoomInfo();
     showExits();
   }
@@ -129,6 +150,11 @@ public class Game {
     if (currentRoom.hasEntities()) {
       IO.println("Current enemies: ");
       TextRenderer.printAllEnemies(currentRoom);
+    }
+
+    if (currentRoom.hasItems()) {
+      IO.println("Items present: ");
+      TextRenderer.printAllItems(currentRoom);
     }
   }
 }
