@@ -2,7 +2,7 @@
 
 ## Logic
 - implement Room generator (static maybe? random game object generator?)
-- implement DamageStrategy for classes (or compose a object for it)
+- implement DamageStrategy for classes (or compose an object for it)
 - add Spawner class for entity creation
 - implement Item/Inventory logic
 ---
