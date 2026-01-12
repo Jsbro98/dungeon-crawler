@@ -60,7 +60,7 @@ public class Game {
   private void playerEquip(String itemName) {
     String normalizedItemName = itemName.substring(0, 1).toUpperCase() + itemName.substring(1);
     if (currentPlayer.hasInInventory(normalizedItemName)) {
-      Item itemToEquip = currentPlayer.getFromInventory(itemName);
+      Item itemToEquip = currentPlayer.getFromInventory(normalizedItemName);
       currentPlayer.equipItem(itemToEquip);
       return;
     }
