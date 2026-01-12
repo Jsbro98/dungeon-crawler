@@ -68,7 +68,8 @@ public class TextRenderer {
             4. heal
             5. directions
             6. pickup <item>
-            7. exit
+            7. equip <item>
+            8. exit
             """);
   }
 
@@ -82,6 +83,18 @@ public class TextRenderer {
     IO.println("""
             Which direction do you travel?
             north, south, east, or west?
+            """);
+  }
+
+  public static void printEnteringBossRoomMessage() {
+    IO.println("""
+            You've entered the final room... there is no exit... either victory or death!
+            """);
+  }
+
+  public static void displayVictoryMessage() {
+    IO.println("""
+            You've defeated the Boss! You're victorious!
             """);
   }
 
