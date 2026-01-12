@@ -3,29 +3,24 @@ package dungeon.logic;
 public class CommandDispatcher {
 
   public static ParsedCommand dispatchCommand(String input) {
-    return switch (input) {
+    String[] inputSplit = input.split(" ", 2);
+    String cmd = inputSplit[0];
+    String arg = inputSplit.length > 1 ? inputSplit[1] : null;
+
+    return switch (cmd) {
       case "exit" -> new ParsedCommand(Command.EXIT, null);
       case "directions" -> new ParsedCommand(Command.DIRECTIONS, null);
       case "attack" -> new ParsedCommand(Command.ATTACK, null);
-      case "heal" -> new ParsedCommand(Command.HEAL, null);
-      case "inventory" -> new ParsedCommand(Command.INVENTORY, null);
+      case "go" -> new ParsedCommand(Command.MOVE, arg);
+      case "pickup" -> new ParsedCommand(Command.PICKUP, arg);
+      case "equip" -> new ParsedCommand(Command.EQUIP, arg);
 
-      default -> {
-        if (input.startsWith("go ")) {
-          String direction = input.substring(3);
-          yield new ParsedCommand(Command.MOVE, direction);
-        } else if (input.startsWith("pickup ")) {
-          String itemName = input.substring(7);
-          yield new ParsedCommand(Command.PICKUP, itemName);
-        } else {
-          throw new IllegalArgumentException("unexpected input: " + input);
-        }
-      }
+      default -> throw new IllegalArgumentException("Unexpected input: " + input);
     };
   }
 
   public enum Command {
-    MOVE, ATTACK, HEAL, DIRECTIONS, INVENTORY, PICKUP, EXIT
+    MOVE, ATTACK, HEAL, DIRECTIONS, INVENTORY, PICKUP, EQUIP, EXIT
   }
 
   public record ParsedCommand(Command type, String argument) {
