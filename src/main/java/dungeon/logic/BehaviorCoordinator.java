@@ -1,9 +1,11 @@
 package dungeon.logic;
 
 import dungeon.Combatant;
+import dungeon.ui.TextRenderer;
 import dungeon.world.Room;
 
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class BehaviorCoordinator {
 
@@ -18,6 +20,16 @@ public class BehaviorCoordinator {
       IO.println(opponent);
       IO.println(player);
     }
+  }
+
+  public void handleBossBattle(Combatant player, Room bossRoom) {
+    Scanner delayUntilReady = new Scanner(System.in);
+    TextRenderer.printEnteringBossRoomMessage();
+    IO.println("Prepare for the fight of your life! Press enter to start");
+    delayUntilReady.nextLine();
+
+    Combatant boss = (Combatant) bossRoom.getEntities().getFirst();
+    handleBattle(player, boss);
   }
 
   public Room moveRoom(Room from, String direction) {
