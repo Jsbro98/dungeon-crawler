@@ -5,10 +5,10 @@ import dungeon.ui.InputHandler;
 import dungeon.ui.TextRenderer;
 import dungeon.world.Room;
 
-import static dungeon.logic.CommandDispatcher.ParsedCommand;
-
 import java.util.List;
 import java.util.Random;
+
+import static dungeon.logic.CommandDispatcher.ParsedCommand;
 
 public class Game {
   private static final Random GAME_RANDOM = new Random();
@@ -17,17 +17,20 @@ public class Game {
   private final RoomRegistry roomRegistry;
   private final InputHandler userInput;
   private Room currentRoom;
+  private boolean didPlayerWin;
 
   public Game(Player player) {
     this.currentPlayer = player;
     this.behaviorCoordinator = new BehaviorCoordinator();
     this.roomRegistry = new RoomRegistry();
     this.userInput = new InputHandler();
+    this.didPlayerWin = false;
   }
 
+  // main entry method for the game
   public void startGame() {
     configStart();
-    while (currentPlayer.isAlive()) {
+    while (currentPlayer.isAlive() && !didPlayerWin) {
       showCommands();
       ParsedCommand parsedCommand = CommandDispatcher.dispatchCommand(userInput.getCommand());
 
@@ -35,6 +38,7 @@ public class Game {
         case EXIT -> {
           return;
         }
+        case EQUIP -> playerEquip(parsedCommand.argument());
         case PICKUP -> playerPickup(parsedCommand.argument());
         case INVENTORY -> displayPlayerInventory();
         case ATTACK -> playerAttack();
@@ -44,23 +48,21 @@ public class Game {
       }
     }
 
+    if (didPlayerWin) {
+      TextRenderer.displayVictoryMessage();
+      return;
+    }
+
     TextRenderer.displayDeathMessage();
   }
 
-  public void generateEnemy(int numberOfEnemies) {
-    for (int i = 0; i < numberOfEnemies; i++) {
-      currentRoom.addEntity(new Ogre(100, 5));
+  // FIXME: this needs to be refactored... ugly!
+  private void playerEquip(String itemName) {
+    String normalizedItemName = itemName.substring(0, 1).toUpperCase() + itemName.substring(1);
+    if (currentPlayer.hasInInventory(normalizedItemName)) {
+      Item itemToEquip = currentPlayer.getFromInventory(itemName);
+      currentPlayer.equipItem(itemToEquip);
     }
-  }
-
-  public void generateItems(int numberOfItems) {
-    for (int i = 0; i < numberOfItems; i++) {
-      currentRoom.addItem(Item.getRandomItem());
-    }
-  }
-
-  public void moveCurrentRoom(String direction) {
-    currentRoom = behaviorCoordinator.moveRoom(currentRoom, direction);
   }
 
   public void addRoom(Room room) {
@@ -77,6 +79,30 @@ public class Game {
 
   public void initCurrentRoom() {
     currentRoom = roomRegistry.getRoom(1);
+  }
+
+  private void setPlayerWon() {
+    didPlayerWin = true;
+  }
+
+  private void generateEnemy(int numberOfEnemies) {
+    for (int i = 0; i < numberOfEnemies; i++) {
+      currentRoom.addEntity(new Ogre(100, 5));
+    }
+  }
+
+  private void generateBossEnemy() {
+    currentRoom.addEntity(new Ogre(300, 10));
+  }
+
+  private void generateItems(int numberOfItems) {
+    for (int i = 0; i < numberOfItems; i++) {
+      currentRoom.addItem(Item.getRandomItem());
+    }
+  }
+
+  private void moveCurrentRoom(String direction) {
+    currentRoom = behaviorCoordinator.moveRoom(currentRoom, direction);
   }
 
   private boolean currentRoomHasNoEntities() {
@@ -102,12 +128,25 @@ public class Game {
 
   private void playerMove(String direction) {
     moveCurrentRoom(direction);
+
+    if (playerEnteredBossRoom()) return;
+
     if (currentRoomHasNoEntities()) {
       generateEnemy(GAME_RANDOM.nextInt(3));
     }
     generateItems(GAME_RANDOM.nextInt(2));
     showRoomInfo();
     showExits();
+  }
+
+  private boolean playerEnteredBossRoom() {
+    if (currentRoom.isBossRoom()) {
+      generateBossEnemy();
+      behaviorCoordinator.handleBossBattle(currentPlayer, currentRoom);
+      if (currentPlayer.isAlive()) setPlayerWon();
+      return true;
+    }
+    return false;
   }
 
   private void playerAttack() {
