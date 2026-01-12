@@ -10,11 +10,14 @@ public class Main {
 
     Room roomOne = RoomFactory.createRoomWithDescription();
     Room roomTwo = RoomFactory.createRoomWithDescription();
+    Room bossRoom = RoomFactory.createBossRoom();
     roomOne.setExit("north", roomTwo);
     roomTwo.setExit("south", roomOne);
+    roomTwo.setExit("east", bossRoom);
 
     gameLoop.addRoom(roomOne);
     gameLoop.addRoom(roomTwo);
+    gameLoop.addRoom(bossRoom);
 
     gameLoop.startGame();
   }
