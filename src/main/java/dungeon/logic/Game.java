@@ -62,7 +62,10 @@ public class Game {
     if (currentPlayer.hasInInventory(normalizedItemName)) {
       Item itemToEquip = currentPlayer.getFromInventory(itemName);
       currentPlayer.equipItem(itemToEquip);
+      return;
     }
+
+    IO.println("You do not have a " + itemName + " to equip");
   }
 
   public void addRoom(Room room) {
