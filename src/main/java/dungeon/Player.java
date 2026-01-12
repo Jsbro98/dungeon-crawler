@@ -82,4 +82,8 @@ public class Player extends Combatant {
   public int getDamageVariance() {
     return MAX_VARIANCE;
   }
+
+  public boolean hasInInventory(String itemName) {
+    return viewInventory().containsKey(itemName);
+  }
 }
