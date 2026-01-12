@@ -13,12 +13,14 @@ public class Room implements Describable {
   private final Map<String, Room> exits;
   private final int id;
   private String description;
+  private boolean isBossRoom;
 
   public Room() {
     this.entities = new ArrayList<>();
     this.items = new HashMap<>();
     this.exits = new HashMap<>();
-    id = createRoomId();
+    this.id = createRoomId();
+    this.isBossRoom = false;
   }
 
   public Room(String description) {
@@ -80,6 +82,14 @@ public class Room implements Describable {
 
   public void setExit(String exitDirection, Room room) {
     exits.put(exitDirection, room);
+  }
+
+  public void setThisToBossRoom() {
+    isBossRoom = true;
+  }
+
+  public boolean isBossRoom() {
+    return isBossRoom;
   }
 
   public Room getExit(String direction) {
