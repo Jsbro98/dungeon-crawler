@@ -24,6 +24,7 @@ public class BehaviorCoordinator {
 
   public void handleBossBattle(Combatant player, Room bossRoom) {
     Scanner delayUntilReady = new Scanner(System.in);
+    TextRenderer.describe(bossRoom);
     TextRenderer.printEnteringBossRoomMessage();
     IO.println("Prepare for the fight of your life! Press enter to start");
     delayUntilReady.nextLine();
