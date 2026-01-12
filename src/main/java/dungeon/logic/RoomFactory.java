@@ -25,7 +25,10 @@ public class RoomFactory {
   }
 
   public static Room createBossRoom() {
-    return new Room("a massive spire surrounded by gold jewels. an unnerving, hulking presence lurks in the shadows");
+    Room bossRoom = new Room("a massive spire surrounded by gold jewels. an unnerving, hulking presence lurks in the shadows");
+    bossRoom.setThisToBossRoom();
+
+    return bossRoom;
   }
 
   public static Room createRoom() {
