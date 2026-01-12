@@ -24,6 +24,10 @@ public class RoomFactory {
     return new Room(getRandomDescription());
   }
 
+  public static Room createBossRoom() {
+    return new Room("a massive spire surrounded by gold jewels. an unnerving, hulking presence lurks in the shadows");
+  }
+
   public static Room createRoom() {
     return new Room();
   }
