@@ -57,7 +57,8 @@ public class Game {
     TextRenderer.displayDeathMessage();
   }
 
-  // FIXME: this needs to be refactored... ugly!
+  // FIXME: this needs to be refactored (possibly)
+  //  less ugly now... could be better haha
   private void playerEquip(String itemName) {
     Optional<Item> wantedItem = ItemValidator.validateItem(itemName);
     if (wantedItem.isPresent() && currentPlayer.hasInInventory(wantedItem.get())) {
