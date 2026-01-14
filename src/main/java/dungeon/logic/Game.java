@@ -6,6 +6,7 @@ import dungeon.ui.TextRenderer;
 import dungeon.world.Room;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 import static dungeon.logic.CommandDispatcher.ParsedCommand;
@@ -58,9 +59,9 @@ public class Game {
 
   // FIXME: this needs to be refactored... ugly!
   private void playerEquip(String itemName) {
-    String normalizedItemName = itemName.substring(0, 1).toUpperCase() + itemName.substring(1);
-    if (currentPlayer.hasInInventory(normalizedItemName)) {
-      Item itemToEquip = currentPlayer.getFromInventory(normalizedItemName);
+    Optional<Item> wantedItem = ItemValidator.validateItem(itemName);
+    if (wantedItem.isPresent() && currentPlayer.hasInInventory(wantedItem.get())) {
+      Item itemToEquip = currentPlayer.getFromInventory(wantedItem.get());
       currentPlayer.equipItem(itemToEquip);
       return;
     }

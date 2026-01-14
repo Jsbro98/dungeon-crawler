@@ -41,13 +41,6 @@ public class Player extends Combatant {
     return wantedItem;
   }
 
-  public Item getFromInventory(String itemName) {
-    Item wantedItem = inventory.getInventory().get(itemName);
-    if (wantedItem == null) throw new NullPointerException("Item returned from inventory is null");
-
-    return wantedItem;
-  }
-
   public void equipItem(Item item) {
     Item targetItem = getFromInventory(item);
     if (targetItem == null || targetItem.isNothing()) return;
@@ -83,7 +76,7 @@ public class Player extends Combatant {
     return MAX_VARIANCE;
   }
 
-  public boolean hasInInventory(String itemName) {
-    return viewInventory().containsKey(itemName);
+  public boolean hasInInventory(Item item) {
+    return viewInventory().containsValue(item);
   }
 }
