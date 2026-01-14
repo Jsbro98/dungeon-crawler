@@ -16,7 +16,7 @@ public class ItemValidator {
                           item -> item
                   ));
 
-  public Optional<Item> validateItem(String itemName) {
+  public static Optional<Item> validateItem(String itemName) {
     itemName = itemName.trim().toLowerCase();
     return Optional.ofNullable(ITEM_REGISTRY.get(itemName));
   }
