@@ -56,18 +56,6 @@ public class Game {
     TextRenderer.displayDeathMessage();
   }
 
-  private void playerEquip(String itemName) {
-    Item item = ItemValidator.validateItem(itemName)
-            .orElseThrow(() -> new NullPointerException("Item requested was null"));
-
-    if (!currentPlayer.hasInInventory(item)) {
-      TextRenderer.displayEquipFailure();
-      return;
-    }
-
-    currentPlayer.equipItem(currentPlayer.getFromInventory(item));
-  }
-
   public void addRoom(Room room) {
     roomRegistry.register(room);
   }
@@ -119,14 +107,27 @@ public class Game {
     showExits();
   }
 
-  // FIXME: this works fine for single word items like Item.SWORD
-  //  for items such as Item.HEALING_POTION, it gets dodgy
   private void playerPickup(String argument) {
-    if (currentRoom.containsItem(argument)) {
-      Item item = currentRoom.getItem(argument);
-      currentPlayer.pickupItem(item);
-      currentRoom.removeItem(item);
+    if (!currentRoom.containsItem(argument)) {
+      TextRenderer.displayPickupFailure();
+      return;
     }
+
+    Item item = currentRoom.getItem(argument);
+    currentPlayer.pickupItem(item);
+    currentRoom.removeItem(item);
+  }
+
+  private void playerEquip(String itemName) {
+    Item item = ItemValidator.validateItem(itemName)
+            .orElseThrow(() -> new NullPointerException("Item requested was null"));
+
+    if (!currentPlayer.hasInInventory(item)) {
+      TextRenderer.displayEquipFailure();
+      return;
+    }
+
+    currentPlayer.equipItem(currentPlayer.getFromInventory(item));
   }
 
   private void playerMove(String direction) {
@@ -154,7 +155,7 @@ public class Game {
 
   private void playerAttack() {
     if (!currentRoom.hasEntities()) {
-      IO.println("There's nothing to attack here.");
+      TextRenderer.displayAttackFailure();
       return;
     }
 
