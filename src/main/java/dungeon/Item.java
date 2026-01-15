@@ -9,8 +9,8 @@ public enum Item {
   CLUB(ItemType.WEAPON, "club", 5),
 
   // potions
-  HEALING_POTION(ItemType.POTION, "healing potion", 20),
-  STRENGTH_POTION(ItemType.POTION, "strength potion", 10),
+  HEALING_POTION(ItemType.POTION, "healing potion", 20, PotionEffect.HEALING),
+  STRENGTH_POTION(ItemType.POTION, "strength potion", 10, PotionEffect.STRENGTH),
 
   // misc types
   // using NOTHING to replace null here as cases for NOTHING will have it provide 0, leaving semantics unaffected
@@ -22,12 +22,22 @@ public enum Item {
           .toList();
   private final ItemType type;
   private final String name;
+  private final PotionEffect effect;
   private final int power;
+
 
   Item(ItemType type, String name, int power) {
     this.type = type;
     this.name = name;
     this.power = power;
+    this.effect = null;
+  }
+
+  Item(ItemType type, String name, int power, PotionEffect effect) {
+    this.type = type;
+    this.name = name;
+    this.power = power;
+    this.effect = effect;
   }
 
   public static Item getRandomItem() {
@@ -38,6 +48,13 @@ public enum Item {
   // getters
   public String getName() {
     return name;
+  }
+
+  public PotionEffect getEffect() {
+    if (type == ItemType.POTION && effect == null) {
+      throw new IllegalStateException("Potion must have an effect");
+    }
+    return effect;
   }
 
   public int getPower() {
@@ -55,5 +72,9 @@ public enum Item {
   // helper enum
   public enum ItemType {
     WEAPON, POTION, BLANK
+  }
+
+  public enum PotionEffect {
+    HEALING, STRENGTH
   }
 }
