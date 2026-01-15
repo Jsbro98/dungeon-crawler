@@ -103,6 +103,16 @@ public class TextRenderer {
     IO.println("Item was not able to be equipped (make sure it's in your inventory)");
   }
 
+  public static void displayPickupFailure() {
+    displayFailure("pickup");
+    IO.println("You cannot pick up this item (make sure it's in the room with you)");
+  }
+
+  public static void displayAttackFailure() {
+    displayFailure("attack");
+    IO.println("There's nothing to attack here.");
+  }
+
   public static void displayEntityStats(Entity entity) {
     System.out.println("Health: " + entity.getHealth());
   }
