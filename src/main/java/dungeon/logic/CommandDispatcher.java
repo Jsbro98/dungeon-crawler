@@ -15,13 +15,14 @@ public class CommandDispatcher {
       case "go" -> new ParsedCommand(Command.MOVE, arg);
       case "pickup" -> new ParsedCommand(Command.PICKUP, arg);
       case "equip" -> new ParsedCommand(Command.EQUIP, arg);
+      case "use" -> new ParsedCommand(Command.USE, arg);
 
       default -> throw new IllegalArgumentException("Unexpected input: " + input);
     };
   }
 
   public enum Command {
-    MOVE, ATTACK, HEAL, DIRECTIONS, INVENTORY, PICKUP, EQUIP, EXIT
+    MOVE, ATTACK, DIRECTIONS, INVENTORY, PICKUP, EQUIP, USE, EXIT
   }
 
   public record ParsedCommand(Command type, String argument) {
