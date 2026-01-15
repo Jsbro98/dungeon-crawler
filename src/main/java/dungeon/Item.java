@@ -5,16 +5,16 @@ import java.util.List;
 import java.util.Random;
 public enum Item {
   // weapons
-  SWORD(ItemType.WEAPON, "Sword", 10),
-  CLUB(ItemType.WEAPON, "Club", 5),
+  SWORD(ItemType.WEAPON, "sword", 10),
+  CLUB(ItemType.WEAPON, "club", 5),
 
   // potions
-  HEALING_POTION(ItemType.POTION, "Healing Potion", 20),
-  STRENGTH_POTION(ItemType.POTION, "Strength Potion", 10),
+  HEALING_POTION(ItemType.POTION, "healing Potion", 20),
+  STRENGTH_POTION(ItemType.POTION, "strength Potion", 10),
 
   // misc types
   // using NOTHING to replace null here as cases for NOTHING will have it provide 0, leaving semantics unaffected
-  NOTHING(ItemType.BLANK, "Nothing", 0);
+  NOTHING(ItemType.BLANK, "nothing", 0);
 
   private static final Random ITEM_RANDOM = new Random();
   private static final List<Item> OBTAINABLE_ITEMS = Arrays.stream(Item.values())
