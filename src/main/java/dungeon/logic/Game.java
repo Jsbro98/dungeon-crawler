@@ -6,7 +6,6 @@ import dungeon.ui.TextRenderer;
 import dungeon.world.Room;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 
 import static dungeon.logic.CommandDispatcher.ParsedCommand;
@@ -57,17 +56,16 @@ public class Game {
     TextRenderer.displayDeathMessage();
   }
 
-  // FIXME: this needs to be refactored (possibly)
-  //  less ugly now... could be better haha
   private void playerEquip(String itemName) {
-    Optional<Item> wantedItem = ItemValidator.validateItem(itemName);
-    if (wantedItem.isPresent() && currentPlayer.hasInInventory(wantedItem.get())) {
-      Item itemToEquip = currentPlayer.getFromInventory(wantedItem.get());
-      currentPlayer.equipItem(itemToEquip);
+    Item item = ItemValidator.validateItem(itemName)
+            .orElseThrow(() -> new NullPointerException("Item requested was null"));
+
+    if (!currentPlayer.hasInInventory(item)) {
+      TextRenderer.displayEquipFailure();
       return;
     }
 
-    IO.println("You do not have a " + itemName + " to equip");
+    currentPlayer.equipItem(currentPlayer.getFromInventory(item));
   }
 
   public void addRoom(Room room) {
