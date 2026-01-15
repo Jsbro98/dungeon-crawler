@@ -56,19 +56,16 @@ public class Room implements Describable {
     entities.remove(entity);
   }
 
-  // FIXME: code smell on the toLowerCase. Read below
   public void addItem(Item item) {
-    items.put(item.getName().toLowerCase(), item);
+    items.put(item.getName(), item);
   }
 
   public boolean containsItem(String name) {
     return items.containsKey(name);
   }
 
-  // FIXME: item adding and removal relies on String.toLowerCase
-  //  look into a fix for it
   public void removeItem(Item item) {
-    items.remove(item.getName().toLowerCase());
+    items.remove(item.getName());
   }
 
   public Item getItem(String name) {
