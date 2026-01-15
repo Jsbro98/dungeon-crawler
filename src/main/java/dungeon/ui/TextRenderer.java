@@ -98,6 +98,11 @@ public class TextRenderer {
             """);
   }
 
+  public static void displayEquipFailure() {
+    displayFailure("equip");
+    IO.println("Item was not able to be equipped (make sure it's in your inventory)");
+  }
+
   public static void displayEntityStats(Entity entity) {
     System.out.println("Health: " + entity.getHealth());
   }
@@ -105,5 +110,9 @@ public class TextRenderer {
   public static void clearScreen() {
     System.out.print("\033[H\033[2J");
     System.out.flush();
+  }
+
+  private static void displayFailure(String command) {
+    IO.println("Could not complete " + command);
   }
 }
