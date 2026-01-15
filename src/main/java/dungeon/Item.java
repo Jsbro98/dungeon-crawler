@@ -9,8 +9,8 @@ public enum Item {
   CLUB(ItemType.WEAPON, "club", 5),
 
   // potions
-  HEALING_POTION(ItemType.POTION, "healing Potion", 20),
-  STRENGTH_POTION(ItemType.POTION, "strength Potion", 10),
+  HEALING_POTION(ItemType.POTION, "healing potion", 20),
+  STRENGTH_POTION(ItemType.POTION, "strength potion", 10),
 
   // misc types
   // using NOTHING to replace null here as cases for NOTHING will have it provide 0, leaving semantics unaffected
