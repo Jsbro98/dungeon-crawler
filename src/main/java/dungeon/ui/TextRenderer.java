@@ -65,10 +65,10 @@ public class TextRenderer {
             1. go <direction>
             2. attack
             3. inventory
-            4. heal
-            5. directions
-            6. pickup <item>
-            7. equip <item>
+            4. directions
+            5. pickup <item>
+            6. equip <item>
+            7. use <potion type>
             8. exit
             """);
   }
@@ -111,6 +111,11 @@ public class TextRenderer {
   public static void displayAttackFailure() {
     displayFailure("attack");
     IO.println("There's nothing to attack here.");
+  }
+
+  public static void displayUseFailure() {
+    displayFailure("use");
+    IO.println("Could not use requested item (make sure it's in your inventory)");
   }
 
   public static void displayEntityStats(Entity entity) {
