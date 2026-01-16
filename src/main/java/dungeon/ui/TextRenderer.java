@@ -17,6 +17,7 @@ public class TextRenderer {
 
   public static void describe(Describable obj) {
     IO.println(obj.describe());
+    IO.println();
   }
 
   public static void showRoomExits(Room room) {
@@ -44,6 +45,7 @@ public class TextRenderer {
         IO.println(entity);
       }
     }
+    IO.println();
   }
 
   public static void printAllItems(Room room) {
@@ -52,6 +54,7 @@ public class TextRenderer {
         IO.println(item);
       }
     }
+    IO.println();
   }
 
   public static void displayDeathMessage() {
@@ -71,6 +74,7 @@ public class TextRenderer {
             7. use <potion type>
             8. exit
             """);
+    IO.println();
   }
 
   public static void printPlayerInventory(Player player) {
