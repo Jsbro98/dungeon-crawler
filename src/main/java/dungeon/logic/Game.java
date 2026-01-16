@@ -43,8 +43,8 @@ public class Game {
         case INVENTORY -> displayPlayerInventory();
         case ATTACK -> playerAttack();
         case MOVE -> playerMove(parsedCommand.argument());
-        case HEAL -> playerHeal();
         case DIRECTIONS -> showExits();
+        case USE -> playerUse(parsedCommand.argument());
       }
     }
 
@@ -122,7 +122,7 @@ public class Game {
     Item item = ItemValidator.validateItem(itemName)
             .orElseThrow(() -> new NullPointerException("Item requested was null"));
 
-    if (!currentPlayer.hasInInventory(item)) {
+    if (currentPlayer.doesNotOwn(item)) {
       TextRenderer.displayEquipFailure();
       return;
     }
@@ -169,8 +169,16 @@ public class Game {
     }
   }
 
-  private void playerHeal() {
-    currentPlayer.heal(GAME_RANDOM.nextInt(25));
+  private void playerUse(String arg) {
+    Item item = ItemValidator.validateItem(arg)
+            .orElseThrow(() -> new NullPointerException("Item requested was null"));
+
+    if (currentPlayer.doesNotOwn(item)) {
+      TextRenderer.displayUseFailure();
+      return;
+    }
+
+    currentPlayer.usePotion(item);
     IO.println(currentPlayer);
   }
 
