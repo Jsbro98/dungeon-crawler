@@ -1,9 +1,8 @@
 package dungeon.logic;
 
-import dungeon.*;
 import dungeon.ui.InputHandler;
 import dungeon.ui.TextRenderer;
-import dungeon.world.Room;
+import dungeon.world.*;
 
 import java.util.List;
 import java.util.Random;

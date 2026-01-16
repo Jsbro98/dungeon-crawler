@@ -1,6 +1,6 @@
 package dungeon.logic;
 
-import dungeon.Item;
+import dungeon.world.Item;
 
 import java.util.Arrays;
 import java.util.Map;

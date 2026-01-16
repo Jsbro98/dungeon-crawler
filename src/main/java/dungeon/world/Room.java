@@ -1,9 +1,5 @@
 package dungeon.world;
 
-import dungeon.Describable;
-import dungeon.Entity;
-import dungeon.Item;
-
 import java.util.*;
 
 public class Room implements Describable {

@@ -1,6 +1,6 @@
 package dungeon.logic;
 
-import dungeon.Combatant;
+import dungeon.world.Combatant;
 import dungeon.ui.TextRenderer;
 import dungeon.world.Room;
 

@@ -1,9 +1,9 @@
 package dungeon.ui;
 
-import dungeon.Describable;
-import dungeon.Entity;
-import dungeon.Item;
-import dungeon.Player;
+import dungeon.world.Describable;
+import dungeon.world.Entity;
+import dungeon.world.Item;
+import dungeon.world.Player;
 import dungeon.world.Room;
 
 import java.util.ArrayList;

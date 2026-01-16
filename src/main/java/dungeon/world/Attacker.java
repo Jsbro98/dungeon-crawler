@@ -1,4 +1,4 @@
-package dungeon;
+package dungeon.world;
 
 public interface Attacker {
   int getDamage();

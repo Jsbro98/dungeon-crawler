@@ -1,4 +1,6 @@
-package dungeon;
+package dungeon.logic;
+
+import dungeon.world.Item;
 
 import java.util.Collections;
 import java.util.HashMap;

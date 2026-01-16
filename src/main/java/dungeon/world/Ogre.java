@@ -1,4 +1,4 @@
-package dungeon;
+package dungeon.world;
 
 import java.util.Random;
 

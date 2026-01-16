@@ -2,6 +2,7 @@ package dungeon;
 
 import dungeon.logic.Game;
 import dungeon.logic.RoomFactory;
+import dungeon.world.Player;
 import dungeon.world.Room;
 
 public class Main {

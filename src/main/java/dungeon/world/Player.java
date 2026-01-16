@@ -1,4 +1,6 @@
-package dungeon;
+package dungeon.world;
+
+import dungeon.logic.Inventory;
 
 import java.util.Map;
 import java.util.Random;

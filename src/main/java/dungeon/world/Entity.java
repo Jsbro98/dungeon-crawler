@@ -1,4 +1,4 @@
-package dungeon;
+package dungeon.world;
 
 public abstract class Entity {
   private int health;
