@@ -57,10 +57,14 @@ public class Player extends Combatant {
       throw new IllegalArgumentException("item is not of type POTION");
     }
 
+    if (doesNotOwn(item)) throw new IllegalArgumentException("player does not own this item");
+
     switch (item.getEffect()) {
       case HEALING -> heal(item.getPower());
       case STRENGTH -> addDamage(item.getPower(), 5);
     }
+
+    inventory.removeFromInventory(item.getName());
   }
 
   public Item getEquipped() {
