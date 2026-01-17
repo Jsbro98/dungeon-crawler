@@ -1,5 +1,6 @@
 package dungeon.logic;
 
+import dungeon.ui.FailureRenderer;
 import dungeon.ui.InputHandler;
 import dungeon.ui.TextRenderer;
 import dungeon.world.*;
@@ -38,7 +39,7 @@ public class Game {
           return;
         }
         case FAILURE -> {
-          TextRenderer.displayInputFailure();
+          FailureRenderer.displayInputFailure();
         }
         case EQUIP -> playerEquip(parsedCommand.argument());
         case PICKUP -> playerPickup(parsedCommand.argument());
@@ -111,7 +112,7 @@ public class Game {
 
   private void playerPickup(String argument) {
     if (!currentRoom.containsItem(argument)) {
-      TextRenderer.displayPickupFailure();
+      FailureRenderer.displayPickupFailure();
       return;
     }
 
@@ -124,12 +125,12 @@ public class Game {
     Item item = ItemValidator.validateItem(itemName);
 
     if (item.isNothing()) {
-      TextRenderer.displayItemFailure();
+      FailureRenderer.displayItemFailure();
       return;
     }
 
     if (currentPlayer.doesNotOwn(item)) {
-      TextRenderer.displayEquipFailure();
+      FailureRenderer.displayEquipFailure();
       return;
     }
 
@@ -161,7 +162,7 @@ public class Game {
 
   private void playerAttack() {
     if (!currentRoom.hasEntities()) {
-      TextRenderer.displayAttackFailure();
+      FailureRenderer.displayAttackFailure();
       return;
     }
 
@@ -179,12 +180,12 @@ public class Game {
     Item item = ItemValidator.validateItem(arg);
 
     if (item.isNothing()) {
-      TextRenderer.displayItemFailure();
+      FailureRenderer.displayItemFailure();
       return;
     }
 
     if (currentPlayer.doesNotOwn(item)) {
-      TextRenderer.displayUseFailure();
+      FailureRenderer.displayUseFailure();
       return;
     }
 

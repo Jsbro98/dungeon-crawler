@@ -1,7 +1,7 @@
 package dungeon.world;
 
 import dungeon.logic.Inventory;
-import dungeon.ui.TextRenderer;
+import dungeon.ui.FailureRenderer;
 
 import java.util.Map;
 import java.util.Random;
@@ -60,12 +60,12 @@ public class Player extends Combatant {
 
   public void usePotion(Item item) {
     if (item.getType() != Item.ItemType.POTION) {
-      TextRenderer.displayUseFailure();
+      FailureRenderer.displayUseFailure();
       return;
     }
 
     if (doesNotOwn(item)) {
-      TextRenderer.displayInventoryFailure();
+      FailureRenderer.displayInventoryFailure();
       return;
     }
 
