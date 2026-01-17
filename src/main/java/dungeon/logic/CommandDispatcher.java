@@ -17,12 +17,12 @@ public class CommandDispatcher {
       case "equip" -> new ParsedCommand(Command.EQUIP, arg);
       case "use" -> new ParsedCommand(Command.USE, arg);
 
-      default -> throw new IllegalArgumentException("Unexpected input: " + input);
+      default -> new ParsedCommand(Command.FAILURE, null);
     };
   }
 
   public enum Command {
-    MOVE, ATTACK, DIRECTIONS, INVENTORY, PICKUP, EQUIP, USE, EXIT
+    MOVE, ATTACK, DIRECTIONS, INVENTORY, PICKUP, EQUIP, USE, FAILURE, EXIT
   }
 
   public record ParsedCommand(Command type, String argument) {
