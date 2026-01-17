@@ -1,5 +1,6 @@
 package dungeon.logic;
 
+import dungeon.ui.InputHandler;
 import dungeon.world.Combatant;
 import dungeon.ui.TextRenderer;
 import dungeon.world.Room;
@@ -8,6 +9,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class BehaviorCoordinator {
+  private static final InputHandler userIn = new InputHandler();
 
   public void handleBattle(Combatant player, Combatant opponent) {
     String opponentName = Arrays.stream(opponent.getClass().getName().split("\\.")).toList().getLast();
@@ -36,12 +38,22 @@ public class BehaviorCoordinator {
   public Room moveRoom(Room from, String direction) {
     Room to = from.getExit(direction);
 
-    if (to != null) {
-      System.out.println("Moving Rooms...");
-      return to;
+    if (to == null) {
+      IO.println("This room does not have an exit at direction " + direction);
+      return from;
     }
 
-    IO.println("this room does not have an exit at direction " + direction);
-    return from;
+    if (to.isBossRoom() && !confirmBossRoomEntry()) {
+      IO.println("Stayed in current room");
+      return from;
+    }
+
+    IO.println("Moving rooms...");
+    return to;
+  }
+
+  private boolean confirmBossRoomEntry() {
+    IO.println("WARNING: This is the boss room. There's no turning back!");
+    return userIn.getYesNo();
   }
 }
