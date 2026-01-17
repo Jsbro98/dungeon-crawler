@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class BehaviorCoordinator {
-  private static final InputHandler userIn = new InputHandler();
+  private static final InputHandler userIn = InputHandler.getInstance();
 
   public void handleBattle(Combatant player, Combatant opponent) {
     String opponentName = Arrays.stream(opponent.getClass().getName().split("\\.")).toList().getLast();

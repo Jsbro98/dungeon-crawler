@@ -23,7 +23,7 @@ public class Game {
     this.currentPlayer = player;
     this.behaviorCoordinator = new BehaviorCoordinator();
     this.roomRegistry = new RoomRegistry();
-    this.userInput = new InputHandler();
+    this.userInput = InputHandler.getInstance();
     this.didPlayerWin = false;
   }
 

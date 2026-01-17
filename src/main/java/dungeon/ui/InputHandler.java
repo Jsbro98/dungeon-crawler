@@ -4,6 +4,13 @@ import java.util.Scanner;
 
 public class InputHandler {
   private final Scanner userIn = new Scanner(System.in);
+  private static final InputHandler instance = new InputHandler();
+
+  private InputHandler() {}
+
+  public static InputHandler getInstance() {
+    return instance;
+  }
 
   public String getCommand() {
     IO.print("> ");
