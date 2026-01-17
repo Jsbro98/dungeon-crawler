@@ -1,15 +1,10 @@
 package dungeon.ui;
 
-import dungeon.world.Describable;
-import dungeon.world.Entity;
-import dungeon.world.Item;
-import dungeon.world.Player;
-import dungeon.world.Room;
-
-import java.util.ArrayList;
+import dungeon.world.*;
 
 public class TextRenderer {
-  private TextRenderer() {}
+  private TextRenderer() {
+  }
 
   public static void greetPlayer() {
     System.out.println("Welcome Player!");
@@ -21,20 +16,13 @@ public class TextRenderer {
   }
 
   public static void showRoomExits(Room room) {
-    ArrayList<String> exits = new ArrayList<>(room.getAllExits().keySet());
-    StringBuilder exitBuilder = new StringBuilder();
-
-    for (String exit : exits) {
-      if (exit.equals(exits.getLast())) {
-        exitBuilder.append(exit);
-        continue;
-      }
-
-      exitBuilder.append(exit).append(", ");
-    }
+    var exits = room.getAllExits();
+    if (exits.isEmpty()) return;
 
     IO.println("This room has exits at:");
-    IO.println(exitBuilder.toString());
+    exits.forEach((direction, destRoom) ->
+            IO.println("  " + direction + " → Room " + destRoom.getId())
+    );
     IO.println();
   }
 
