@@ -41,6 +41,7 @@ public class BehaviorCoordinator {
       return to;
     }
 
+    IO.println("this room does not have an exit at direction " + direction);
     return from;
   }
 }

@@ -16,11 +16,15 @@ public class Inventory {
   }
 
   public void addToInventory(String key, Item item) {
-    if (inventory.size() >= inventorySize)
-      throw new UnsupportedOperationException("could not pick up " + item.getName() + ", inventory is full");
+    if (inventory.size() >= inventorySize) {
+      IO.println("your inventory is too full!");
+      return;
+    }
 
-    if (inventory.containsKey(key))
-      throw new UnsupportedOperationException("duplicate item provided for " + item.getName() + ", duplicates are not allowed");
+    if (inventory.containsKey(key)) {
+      IO.println("you already own this item!");
+      return;
+    }
 
     inventory.put(key, item);
   }

@@ -67,9 +67,7 @@ public class Room implements Describable {
   public Item getItem(String name) {
     Item item = items.get(name);
 
-    if (item == null) throw new NullPointerException("item is null");
-
-    return item;
+    return item == null ? Item.NOTHING : item;
   }
 
 
@@ -86,11 +84,7 @@ public class Room implements Describable {
   }
 
   public Room getExit(String direction) {
-    if (exits.containsKey(direction)) {
-      return exits.get(direction);
-    }
-
-    throw new IllegalArgumentException("Key provided for exit does not exist");
+   return exits.get(direction);
   }
 
   public Map<String, Room> getAllExits() {

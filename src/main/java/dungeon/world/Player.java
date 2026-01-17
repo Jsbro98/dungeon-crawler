@@ -1,6 +1,7 @@
 package dungeon.world;
 
 import dungeon.logic.Inventory;
+import dungeon.ui.TextRenderer;
 
 import java.util.Map;
 import java.util.Random;
@@ -43,7 +44,10 @@ public class Player extends Combatant {
 
   public Item getFromInventory(Item item) {
     Item wantedItem = inventory.getInventory().get(item.getName());
-    if (wantedItem == null) throw new NullPointerException("Item returned from inventory is null");
+
+    if (wantedItem == null || wantedItem.isNothing()) {
+      throw new NullPointerException("wanted item was null or NOTHING");
+    }
 
     return wantedItem;
   }
@@ -56,10 +60,14 @@ public class Player extends Combatant {
 
   public void usePotion(Item item) {
     if (item.getType() != Item.ItemType.POTION) {
-      throw new IllegalArgumentException("item is not of type POTION");
+      TextRenderer.displayUseFailure();
+      return;
     }
 
-    if (doesNotOwn(item)) throw new IllegalArgumentException("player does not own this item");
+    if (doesNotOwn(item)) {
+      TextRenderer.displayInventoryFailure();
+      return;
+    }
 
     switch (item.getEffect()) {
       case HEALING -> heal(item.getPower());
