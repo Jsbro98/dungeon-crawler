@@ -122,6 +122,21 @@ public class TextRenderer {
     IO.println("Could not use requested item (make sure it's in your inventory)");
   }
 
+  public static void displayItemFailure() {
+    displayFailure("item selection");
+    IO.println("this is not a valid item");
+  }
+
+  public static void displayInventoryFailure() {
+    displayFailure("inventory selection");
+    IO.println("item is not in your inventory");
+  }
+
+  public static void displayInputFailure() {
+    displayFailure("command you entered");
+    IO.println("the command you entered does not exist");
+  }
+
   public static void displayEntityStats(Entity entity) {
     System.out.println("Health: " + entity.getHealth());
   }
