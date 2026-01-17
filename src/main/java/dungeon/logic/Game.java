@@ -31,6 +31,7 @@ public class Game {
   public void startGame() {
     configStart();
     while (currentPlayer.isAlive() && !didPlayerWin) {
+      showRoomInfo();
       showCommands();
       ParsedCommand parsedCommand = CommandDispatcher.dispatchCommand(userInput.getCommand());
 
@@ -106,8 +107,6 @@ public class Game {
   private void configStart() {
     initCurrentRoom();
     TextRenderer.greetPlayer();
-    showRoomInfo();
-    showExits();
   }
 
   private void playerPickup(String argument) {
@@ -119,6 +118,8 @@ public class Game {
     Item item = currentRoom.getItem(argument);
     currentPlayer.pickupItem(item);
     currentRoom.removeItem(item);
+
+    IO.println("you pick up a " + argument);
   }
 
   private void playerEquip(String itemName) {
@@ -135,6 +136,7 @@ public class Game {
     }
 
     currentPlayer.equipItem(currentPlayer.getFromInventory(item));
+    IO.println("you equip the " + itemName);
   }
 
   private void playerMove(String direction) {
@@ -146,8 +148,6 @@ public class Game {
       generateEnemy(GAME_RANDOM.nextInt(3));
     }
     generateItems(GAME_RANDOM.nextInt(2));
-    showRoomInfo();
-    showExits();
   }
 
   private boolean playerEnteredBossRoom() {
@@ -171,6 +171,10 @@ public class Game {
 
     if (target instanceof Combatant enemy) {
       behaviorCoordinator.handleBattle(currentPlayer, enemy);
+
+      // cleanup after the battle
+      if (enemy.isDead()) currentRoom.removeEntity(enemy);
+
     } else {
       currentPlayer.attack(target);
     }
@@ -194,6 +198,11 @@ public class Game {
   }
 
   private void displayPlayerInventory() {
+    if (currentPlayer.viewInventory().isEmpty()) {
+      IO.println("your inventory is empty...");
+      return;
+    }
+
     TextRenderer.printPlayerInventory(currentPlayer);
   }
 
@@ -218,5 +227,7 @@ public class Game {
       IO.println("Items present: ");
       TextRenderer.printAllItems(currentRoom);
     }
+
+    showExits();
   }
 }
