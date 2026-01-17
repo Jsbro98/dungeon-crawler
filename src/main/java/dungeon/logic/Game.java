@@ -37,6 +37,9 @@ public class Game {
         case EXIT -> {
           return;
         }
+        case FAILURE -> {
+          TextRenderer.displayInputFailure();
+        }
         case EQUIP -> playerEquip(parsedCommand.argument());
         case PICKUP -> playerPickup(parsedCommand.argument());
         case INVENTORY -> displayPlayerInventory();
@@ -118,8 +121,12 @@ public class Game {
   }
 
   private void playerEquip(String itemName) {
-    Item item = ItemValidator.validateItem(itemName)
-            .orElseThrow(() -> new NullPointerException("Item requested was null"));
+    Item item = ItemValidator.validateItem(itemName);
+
+    if (item.isNothing()) {
+      TextRenderer.displayItemFailure();
+      return;
+    }
 
     if (currentPlayer.doesNotOwn(item)) {
       TextRenderer.displayEquipFailure();
@@ -169,8 +176,12 @@ public class Game {
   }
 
   private void playerUse(String arg) {
-    Item item = ItemValidator.validateItem(arg)
-            .orElseThrow(() -> new NullPointerException("Item requested was null"));
+    Item item = ItemValidator.validateItem(arg);
+
+    if (item.isNothing()) {
+      TextRenderer.displayItemFailure();
+      return;
+    }
 
     if (currentPlayer.doesNotOwn(item)) {
       TextRenderer.displayUseFailure();
