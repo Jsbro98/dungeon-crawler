@@ -31,7 +31,7 @@ This project was built to reinforce my Java fundamentals through a fun, complete
 
 ### Option 1: Run the JAR (Recommended)
 
-download the prebuilt JAR from the GitHub release then run:
+download the prebuilt JAR from the release tab then run:
 
 ```bash
 java -jar dungeon-crawler.jar
