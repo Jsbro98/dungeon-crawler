@@ -40,5 +40,5 @@ java -jar dungeon-crawler.jar
 
 ```bash
 mvn clean package
-java -jar target/dungeon-crawler-1.0.0.jar
+java -jar dungeon-crawler.jar
 ```
