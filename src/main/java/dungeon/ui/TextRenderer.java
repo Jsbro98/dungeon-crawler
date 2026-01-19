@@ -21,7 +21,7 @@ public class TextRenderer {
 
     IO.println("This room has exits at:");
     exits.forEach((direction, destRoom) ->
-            IO.println("  " + direction + " → Room " + destRoom.getId())
+            IO.println("  " + direction + " -> Room " + destRoom.getId())
     );
     IO.println();
   }
